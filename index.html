@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>rnrkSpace</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="page">
+      <span class="logo">MySpace</span>
+      <span class="nav">
+        <a href="./index.html">Home</a>
+        <a href="./login.html">Login</a>
+        <a href="./settings.html">Settings</a>
+      </span>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="module">
+      <div class="module-title">Welcome</div>
+      <div class="module-body">
+        <div id="authStatus" class="small muted"></div>
+        <p class="small">Type a username to visit a profile (ex: <code>user_ab12cd</code>)</p>
+        <div class="row">
+          <input id="username" class="input" placeholder="username" />
+          <button id="go" class="btn">Go</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./index.js"></script>
+</body>
+</html>

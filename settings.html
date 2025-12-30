@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Settings</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="page">
+      <span class="logo">MySpace</span>
+      <span class="nav">
+        <a href="./index.html">Home</a>
+        <a href="./login.html">Login</a>
+        <a href="./settings.html">Settings</a>
+      </span>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="module">
+      <div class="module-title">Profile Settings</div>
+      <div class="module-body">
+        <div id="guard" class="small muted"></div>
+
+        <div class="grid">
+          <label class="small">Username</label>
+          <input id="username" class="input" />
+
+          <label class="small">Display name</label>
+          <input id="displayName" class="input" />
+
+          <label class="small">Headline</label>
+          <input id="headline" class="input" />
+
+          <label class="small">About Me</label>
+          <textarea id="aboutMe" class="input textarea"></textarea>
+
+          <label class="small">Interests</label>
+          <textarea id="interests" class="input textarea"></textarea>
+        </div>
+
+        <div class="row">
+          <button id="save" class="btn">Save</button>
+          <a id="view" class="link" href="#">View my profile</a>
+        </div>
+
+        <hr />
+
+        <div class="small"><b>Theme</b> (safe CSS vars)</div>
+        <div class="grid">
+          <label class="small">bg</label><input id="t_bg" class="input" />
+          <label class="small">panel</label><input id="t_panel" class="input" />
+          <label class="small">border</label><input id="t_border" class="input" />
+          <label class="small">accent</label><input id="t_accent" class="input" />
+          <label class="small">text</label><input id="t_text" class="input" />
+          <label class="small">font</label><input id="t_font" class="input" />
+        </div>
+
+        <div id="msg" class="small muted"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./settings.js"></script>
+</body>
+</html>

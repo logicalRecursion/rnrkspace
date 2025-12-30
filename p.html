@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Profile</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="page">
+      <span class="logo">MySpace</span>
+      <span class="nav">
+        <a href="./index.html">Home</a>
+        <a href="./login.html">Login</a>
+        <a href="./settings.html">Settings</a>
+      </span>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="columns">
+      <div>
+        <div class="module">
+          <div class="module-title" id="nameBox">Profile</div>
+          <div class="module-body">
+            <div class="small"><b id="headline"></b></div>
+            <div class="small muted" id="profileUrl"></div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="module-title">Interests</div>
+          <div class="module-body small" id="interests"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="module">
+          <div class="module-title">About Me</div>
+          <div class="module-body small" id="aboutMe"></div>
+        </div>
+
+        <div class="module">
+          <div class="module-title">Comments</div>
+          <div class="module-body">
+            <div id="commentGuard" class="small muted"></div>
+            <textarea id="commentBody" class="input textarea" placeholder="Write a comment..."></textarea>
+            <div class="row">
+              <button id="post" class="btn">Post Comment</button>
+              <div id="msg" class="small muted"></div>
+            </div>
+            <div id="commentList" class="comment-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./profile.js"></script>
+</body>
+</html>
