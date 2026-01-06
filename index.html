@@ -1,37 +1,80 @@
 <!doctype html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>rnrkSpace</title>
-  <link rel="stylesheet" href="./style.css" />
-</head>
-<body>
-  <div class="topbar">
-    <div class="page">
-      <span class="logo">rnrkSpace</span>
-      <span class="nav">
-        <a href="./index.html">Home</a>
-        <a href="./login.html">Login</a>
-        <a href="./settings.html">Settings</a>
-      </span>
-    </div>
-  </div>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>oldpeoplespace — login</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-  <div class="page">
-    <div class="module">
-      <div class="module-title">Welcome</div>
-      <div class="module-body">
-        <div id="authStatus" class="small muted"></div>
-        <p class="small">Type a username to visit a profile (ex: <code>user_ab12cd</code>)</p>
-        <div class="row">
-          <input id="username" class="input" placeholder="username" />
-          <button id="go" class="btn">Go</button>
+  <body>
+    <header class="topbar">
+      <div class="brandRow">
+        <div class="logo">ops</div>
+        <div>
+          <div class="brandName">oldpeoplespace</div>
+          <div class="muted small">the nostalgically social place</div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <script type="module" src="./index.js"></script>
-</body>
+      <nav class="nav">
+        <a class="navLink active" href="./login.html">Login</a>
+        <a class="navLink" href="./p.html">Feed</a>
+        <a class="navLink" href="./profile.html">Profile</a>
+        <a class="navLink" href="./settings.html">Settings</a>
+      </nav>
+
+      <div class="right muted small" id="authStatus">Not signed in</div>
+    </header>
+
+    <main class="container">
+      <section class="panel">
+        <h1>Welcome back</h1>
+        <p class="muted">Sign in to oldpeoplespace.</p>
+
+        <div class="grid2">
+          <div class="card">
+            <h2>Sign in</h2>
+
+            <label class="label">Email</label>
+            <input id="inSignInEmail" class="input" type="email" placeholder="you@email.com" />
+
+            <label class="label">Password</label>
+            <input id="inSignInPassword" class="input" type="password" placeholder="••••••••" />
+
+            <button id="btnSignIn" class="btn">Sign in</button>
+            <div id="signInMsg" class="msg"></div>
+          </div>
+
+          <div class="card">
+            <h2>Create account</h2>
+
+            <label class="label">Email</label>
+            <input id="inSignUpEmail" class="input" type="email" placeholder="you@email.com" />
+
+            <label class="label">Password</label>
+            <input id="inSignUpPassword" class="input" type="password" placeholder="min 6 chars" />
+
+            <button id="btnSignUp" class="btn">Create account</button>
+            <div class="muted small">
+              If email confirmations are ON in Supabase, you’ll need to confirm before signing in.
+            </div>
+
+            <div id="signUpMsg" class="msg"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>© <span id="year"></span> oldpeoplespace</div>
+      <div class="muted small">Supabase + nostalgia.</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./config.js"></script>
+    <script src="./supabaseClient.js"></script>
+    <script src="./util.js"></script>
+    <script src="./login.js"></script>
+  </body>
 </html>
