@@ -9,8 +9,10 @@
   <link rel="icon" href="logos/oldpeoplespace.png" />
   <link rel="stylesheet" href="css/style.css" />
 
+  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+  <!-- App Core -->
   <script src="js/config.js" defer></script>
   <script src="js/supabaseClient.js" defer></script>
   <script src="js/util.js" defer></script>
@@ -19,14 +21,18 @@
   <script src="js/app.js" defer></script>
   <script src="js/index.js" defer></script>
 </head>
+
 <body>
+  <!-- Topbar is injected by JS -->
   <div id="topbar" class="topbar"></div>
 
   <div class="page">
     <div class="frame">
       <div class="layout-2005">
+
         <!-- LEFT COLUMN -->
         <div class="col left">
+
           <div class="module">
             <div class="module-hd">
               <div class="module-title">My Card</div>
@@ -35,6 +41,7 @@
             <div class="module-bd">
               <div class="cardline" id="myCardText">Checking session…</div>
               <div class="actions compact">
+                <!-- Profile + settings are real pages -->
                 <a class="btn primary" href="p.html">My Profile</a>
                 <a class="btn" href="settings.html">Settings</a>
               </div>
@@ -47,7 +54,10 @@
             </div>
             <div class="module-bd">
               <ul class="linklist">
-                <li><a href="profile.html">Public Profile</a> <span class="muted">(shareable)</span></li>
+                <li>
+                  <a href="profile.html">Public Profile</a>
+                  <span class="muted">(shareable)</span>
+                </li>
                 <li><a href="p.html">Edit Profile</a></li>
                 <li><a href="settings.html">Customize</a></li>
               </ul>
@@ -62,15 +72,21 @@
         <!-- MAIN COLUMN -->
         <div class="col main">
           <div class="module">
+
             <div class="module-hd hero-hd">
               <div class="hero">
-                <img class="hero-logo" src="logos/oldpeoplespace.png" alt="OldPeopleSpace logo" />
+                <img
+                  class="hero-logo"
+                  src="logos/oldpeoplespace.png"
+                  alt="OldPeopleSpace logo"
+                />
                 <div class="hero-text">
                   <div class="hero-title">OldPeopleSpace</div>
                   <div class="hero-subtitle">A Place for Old Faces</div>
                 </div>
               </div>
             </div>
+
             <div class="module-bd">
               <div class="notice slim">
                 <div class="notice-title">Welcome back.</div>
@@ -79,6 +95,7 @@
                 </div>
               </div>
 
+              <!-- POST -->
               <div class="module submodule">
                 <div class="module-hd">
                   <div class="module-title">Post an Update</div>
@@ -86,14 +103,23 @@
                 </div>
                 <div class="module-bd">
                   <label class="label" for="postText">What’s new?</label>
-                  <textarea id="postText" class="textarea" placeholder="Type an update…"></textarea>
+                  <textarea
+                    id="postText"
+                    class="textarea"
+                    placeholder="Type an update…"
+                  ></textarea>
                   <div class="actions">
-                    <button class="btn primary" id="btnPost" type="button">Post</button>
-                    <button class="btn" id="btnRefresh" type="button">Refresh</button>
+                    <button class="btn primary" id="btnPost" type="button">
+                      Post
+                    </button>
+                    <button class="btn" id="btnRefresh" type="button">
+                      Refresh
+                    </button>
                   </div>
                 </div>
               </div>
 
+              <!-- FEED -->
               <div class="module submodule">
                 <div class="module-hd">
                   <div class="module-title">Friends’ Updates</div>
@@ -103,12 +129,14 @@
                   <div id="feed" class="feed"></div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
 
         <!-- RIGHT COLUMN -->
         <div class="col right">
+
           <div class="module">
             <div class="module-hd">
               <div class="module-title">Today’s Mood</div>
@@ -116,8 +144,14 @@
             </div>
             <div class="module-bd">
               <div class="mood">
-                <div class="mood-row"><span class="mood-label">Status:</span> <span class="mood-value">Keeping it classic</span></div>
-                <div class="mood-row"><span class="mood-label">Vibe:</span> <span class="mood-value">Dark Kelly Green</span></div>
+                <div class="mood-row">
+                  <span class="mood-label">Status:</span>
+                  <span class="mood-value">Keeping it classic</span>
+                </div>
+                <div class="mood-row">
+                  <span class="mood-label">Vibe:</span>
+                  <span class="mood-value">Dark Kelly Green</span>
+                </div>
               </div>
               <div class="hint">
                 Your profile doesn’t have to be perfect. It just has to feel like you.
@@ -140,16 +174,20 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
       <div class="footer">
         <img src="logos/oldpeoplespace.png" alt="" />
-        <span>© <span id="yr"></span> OldPeopleSpace — A Place for Old Faces</span>
+        <span>
+          © <span id="yr"></span> OldPeopleSpace — A Place for Old Faces
+        </span>
       </div>
     </div>
   </div>
 
+  <!-- Toast -->
   <div class="toast" id="toast">
     <div class="toast-title t-title">Notice</div>
     <div class="toast-msg t-msg"></div>
