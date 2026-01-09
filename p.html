@@ -1,3 +1,4 @@
+<!-- /p.html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,7 +9,6 @@
   <link rel="icon" href="logos/oldpeoplespace.png" />
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- Supabase JS (browser CDN). -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script src="js/config.js" defer></script>
@@ -20,70 +20,118 @@
   <script src="js/profile.js" defer></script>
 </head>
 <body data-profile-mode="me">
-  <div class="topbar" id="topbar"></div>
+  <div id="topbar" class="topbar"></div>
 
-  <div class="container">
-    <div class="banner">
-      <b>Profile</b> — A Place for Old Faces
-    </div>
+  <div class="page">
+    <div class="frame">
+      <div class="layout-2005">
+        <div class="col left">
+          <div class="module">
+            <div class="module-hd">
+              <div class="module-title">My Profile</div>
+              <div class="module-chip" id="profileName">Loading…</div>
+            </div>
+            <div class="module-bd">
+              <div class="profile-badge">
+                <img class="profile-badge-logo" src="logos/oldpeoplespace.png" alt="" />
+                <div class="profile-badge-text">
+                  <div class="profile-badge-title">OldPeopleSpace</div>
+                  <div class="profile-badge-sub">A Place for Old Faces</div>
+                </div>
+              </div>
 
-    <div class="grid">
-      <div class="card">
-        <div class="hd"><h2>Summary</h2><span class="badge" id="profileName">Loading…</span></div>
-        <div class="bd" id="profileLeft">
-          <div class="kbd" id="profileSummary">Loading your information…</div>
+              <div class="divider"></div>
 
-          <hr>
+              <div class="cardline" id="profileSummary">Loading your information…</div>
+              <div class="hint">
+                Keep it classic. A little bio goes a long way.
+              </div>
+            </div>
+          </div>
 
-          <div class="card" style="box-shadow:none;border-radius:16px">
-            <div class="hd"><h2>Top 8</h2><span class="badge">Placeholder</span></div>
-            <div class="bd">
-              <div class="list" id="top8"></div>
+          <div class="module">
+            <div class="module-hd">
+              <div class="module-title">Top 8</div>
+              <div class="module-chip">Classic</div>
+            </div>
+            <div class="module-bd">
+              <div class="top8" id="top8"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col main">
+          <div class="module">
+            <div class="module-hd">
+              <div class="module-title">About Me</div>
+              <div class="module-chip">Editable</div>
+            </div>
+            <div class="module-bd">
+              <label class="label" for="displayName">Display name</label>
+              <input id="displayName" class="input" placeholder="Display name" />
+
+              <label class="label" for="bio">Bio</label>
+              <textarea id="bio" class="textarea" placeholder="Write a short bio…"></textarea>
+
+              <div class="actions">
+                <button class="btn primary" id="btnSaveProfile" type="button">Save</button>
+                <a class="btn" href="index.html">Home</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="module">
+            <div class="module-hd">
+              <div class="module-title">My Recent Posts</div>
+              <div class="module-chip">Last 10</div>
+            </div>
+            <div class="module-bd">
+              <div id="myPosts" class="feed"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col right">
+          <div class="module">
+            <div class="module-hd">
+              <div class="module-title">Profile Tips</div>
+            </div>
+            <div class="module-bd">
+              <ul class="rules">
+                <li>Make your bio short and sweet.</li>
+                <li>Pick a Top 8 that makes you smile.</li>
+                <li>Post a quick update once in a while.</li>
+              </ul>
+              <div class="hint">
+                OldPeopleSpace isn’t about perfection—just presence.
+              </div>
+            </div>
+          </div>
+
+          <div class="module">
+            <div class="module-hd">
+              <div class="module-title">Shortcuts</div>
+            </div>
+            <div class="module-bd">
+              <ul class="linklist">
+                <li><a href="settings.html">Customize Profile</a></li>
+                <li><a href="profile.html">Public Profile View</a></li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="hd"><h2>About</h2><span class="badge">Editable</span></div>
-        <div class="bd">
-          <div class="label"><span>Display name</span><small>stored when profile table exists</small></div>
-          <input id="displayName" placeholder="Display name" />
-
-          <div style="height:10px"></div>
-
-          <div class="label"><span>Bio</span><small>optional</small></div>
-          <textarea id="bio" placeholder="Bio"></textarea>
-
-          <div style="height:10px"></div>
-
-          <div class="row two">
-            <button class="btn primary" id="btnSaveProfile" type="button">Save</button>
-            <a class="btn" href="index.html">Home</a>
-          </div>
-
-          <hr>
-
-          <div class="card" style="box-shadow:none;border-radius:16px">
-            <div class="hd"><h2>Recent Posts</h2><span class="badge">Last 10</span></div>
-            <div class="bd">
-              <div class="list" id="myPosts"></div>
-            </div>
-          </div>
-
-        </div>
+      <div class="footer">
+        <img src="logos/oldpeoplespace.png" alt="" />
+        <span>© <span id="yr"></span> OldPeopleSpace — A Place for Old Faces</span>
       </div>
-    </div>
-
-    <div class="footer">
-      <img src="logos/oldpeoplespace.png" alt="" />
-      &nbsp; © <span id="yr"></span> OldPeopleSpace. All rights reserved.
     </div>
   </div>
 
   <div class="toast" id="toast">
-    <div><b class="t-title">Notice</b></div>
-    <div class="t-msg"></div>
+    <div class="toast-title t-title">Notice</div>
+    <div class="toast-msg t-msg"></div>
   </div>
 </body>
 </html>

@@ -1,6 +1,4 @@
 // /js/feed.js
-// Feed storage adapter: Supabase primary, localStorage fallback.
-
 (function () {
   "use strict";
 
@@ -14,9 +12,7 @@
         user_id: user.id,
         content: content,
       });
-
       if (!error) return;
-      console.warn("Supabase insert failed; using localStorage fallback.", error);
     }
 
     const k = localPostsKey(user);
@@ -43,11 +39,7 @@
         .order("created_at", { ascending: false })
         .limit(25);
 
-      if (!error && Array.isArray(data)) {
-        items = data;
-      } else {
-        console.warn("Supabase select failed; using localStorage fallback.", error);
-      }
+      if (!error && Array.isArray(data)) items = data;
     }
 
     if (!items.length) {
@@ -56,7 +48,7 @@
     }
 
     if (!items.length) {
-      hostEl.innerHTML = `<div class="kbd">No posts available.</div>`;
+      hostEl.innerHTML = `<div class="cardline">No updates yet. Be the first to post something classic.</div>`;
       return;
     }
 
@@ -65,22 +57,22 @@
     hostEl.innerHTML = items
       .map(
         (p) => `
-        <div class="post">
-          <div class="meta">
-            <span>@${window.Util.escapeHtml(handle)}</span>
-            <span>${window.Util.escapeHtml(window.Util.formatTime(p.created_at))}</span>
+          <div class="post">
+            <div class="post-meta">
+              <span>@${window.Util.escapeHtml(handle)}</span>
+              <span>${window.Util.escapeHtml(window.Util.formatTime(p.created_at))}</span>
+            </div>
+            <div class="post-body">${window.Util.escapeHtml(p.content)}</div>
           </div>
-          <div class="content">${window.Util.escapeHtml(p.content)}</div>
-        </div>
-      `
+        `
       )
       .join("");
   }
 
   async function loadMyPosts(sb, user, hostEl) {
     if (!hostEl) return;
-    hostEl.innerHTML = "";
 
+    hostEl.innerHTML = "";
     let items = [];
 
     if (sb) {
@@ -91,11 +83,7 @@
         .order("created_at", { ascending: false })
         .limit(10);
 
-      if (!error && Array.isArray(data)) {
-        items = data;
-      } else {
-        console.warn("Supabase my-posts select failed; using localStorage fallback.", error);
-      }
+      if (!error && Array.isArray(data)) items = data;
     }
 
     if (!items.length) {
@@ -104,7 +92,7 @@
     }
 
     if (!items.length) {
-      hostEl.innerHTML = `<div class="kbd">No posts available.</div>`;
+      hostEl.innerHTML = `<div class="cardline">No posts yet. Drop a quick update on the home page.</div>`;
       return;
     }
 
@@ -113,14 +101,14 @@
     hostEl.innerHTML = items
       .map(
         (p) => `
-        <div class="post">
-          <div class="meta">
-            <span>@${window.Util.escapeHtml(handle)}</span>
-            <span>${window.Util.escapeHtml(window.Util.formatTime(p.created_at))}</span>
+          <div class="post">
+            <div class="post-meta">
+              <span>@${window.Util.escapeHtml(handle)}</span>
+              <span>${window.Util.escapeHtml(window.Util.formatTime(p.created_at))}</span>
+            </div>
+            <div class="post-body">${window.Util.escapeHtml(p.content)}</div>
           </div>
-          <div class="content">${window.Util.escapeHtml(p.content)}</div>
-        </div>
-      `
+        `
       )
       .join("");
   }

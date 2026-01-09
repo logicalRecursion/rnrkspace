@@ -1,6 +1,4 @@
 // /js/auth-guard.js
-// Route protection helpers for pages requiring authentication.
-
 (function () {
   "use strict";
 

@@ -1,3 +1,4 @@
+<!-- /login.html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,7 +9,6 @@
   <link rel="icon" href="logos/oldpeoplespace.png" />
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- Supabase JS (browser CDN). -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script src="js/config.js" defer></script>
@@ -19,89 +19,108 @@
   <script src="js/login.js" defer></script>
 </head>
 <body>
-  <div class="topbar" id="topbar">
+  <div class="topbar">
     <div class="topbar-inner">
-      <div class="brand">
-        <a href="login.html" aria-label="OldPeopleSpace Login">
-          <img src="logos/oldpeoplespace.png" alt="OldPeopleSpace logo">
-        </a>
-        <div class="tag">
-          <strong>OldPeopleSpace</strong>
-          <span>A Place for Old Faces</span>
+      <a class="brand" href="login.html" aria-label="OldPeopleSpace">
+        <img src="logos/oldpeoplespace.png" alt="OldPeopleSpace logo" />
+        <div class="brand-text">
+          <div class="brand-title">OldPeopleSpace</div>
+          <div class="brand-tag">A Place for Old Faces</div>
         </div>
+      </a>
+
+      <div class="topnav">
+        <a class="toplink active" href="login.html">Login</a>
+        <a class="toplink" href="index.html">Home</a>
       </div>
-      <div class="nav">
-        <a class="pill primary" href="login.html">Login</a>
+    </div>
+
+    <div class="topbar-sub">
+      <div class="topbar-sub-inner">
+        <span class="submsg">Keep it simple. Keep it friendly. Keep it yours.</span>
       </div>
     </div>
   </div>
 
-  <div class="container">
-    <div class="banner">
-      <b>Sign in</b> to access your profile and updates.
-    </div>
-
-    <div class="grid">
-      <div class="card">
-        <div class="hd"><h2>Authentication</h2><span class="badge">Supabase</span></div>
-        <div class="bd">
-          <div class="row two">
-            <div>
-              <div class="label"><span>Email</span><small>required</small></div>
-              <input id="email" type="email" placeholder="you@domain.com" autocomplete="email" />
+  <div class="page">
+    <div class="frame">
+      <div class="layout-login">
+        <div class="module">
+          <div class="module-hd">
+            <div class="module-title">Sign In</div>
+            <div class="module-chip">Welcome</div>
+          </div>
+          <div class="module-bd">
+            <div class="notice slim">
+              <div class="notice-title">Good to see you.</div>
+              <div class="notice-text">Log in to post updates and tune your profile.</div>
             </div>
-            <div>
-              <div class="label"><span>Password</span><small>required</small></div>
-              <input id="password" type="password" placeholder="••••••••" autocomplete="current-password" />
+
+            <div class="form">
+              <label class="label" for="email">Email</label>
+              <input id="email" class="input" type="email" placeholder="you@domain.com" autocomplete="email" />
+
+              <label class="label" for="password">Password</label>
+              <input id="password" class="input" type="password" placeholder="••••••••" autocomplete="current-password" />
+
+              <div class="actions">
+                <button class="btn primary" id="btnLogin" type="button">Log in</button>
+                <button class="btn" id="btnSignup" type="button">Sign up</button>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="mini">
+                <div class="mini-title">No password today?</div>
+                <div class="mini-text">Send a magic link to your email and hop right in.</div>
+              </div>
+
+              <div class="actions">
+                <button class="btn" id="btnMagic" type="button">Send magic link</button>
+                <a class="btn" href="index.html">Continue</a>
+              </div>
             </div>
           </div>
+        </div>
 
-          <div style="height:10px"></div>
-
-          <div class="row two">
-            <button class="btn primary" id="btnLogin" type="button">Log in</button>
-            <button class="btn" id="btnSignup" type="button">Sign up</button>
+        <div class="module">
+          <div class="module-hd">
+            <div class="module-title">What’s Inside</div>
+            <div class="module-chip">Quick tour</div>
           </div>
+          <div class="module-bd">
+            <div class="tour">
+              <div class="tour-item">
+                <div class="tour-bullet">•</div>
+                <div class="tour-text"><b>Updates</b> — share small moments and quick check-ins.</div>
+              </div>
+              <div class="tour-item">
+                <div class="tour-bullet">•</div>
+                <div class="tour-text"><b>Profiles</b> — keep it classic with a bio and a Top 8.</div>
+              </div>
+              <div class="tour-item">
+                <div class="tour-bullet">•</div>
+                <div class="tour-text"><b>Good vibes</b> — no pressure, no noise, just familiar faces.</div>
+              </div>
+            </div>
 
-          <hr>
-
-          <div class="label"><span>Magic link (optional)</span><small>email-based</small></div>
-          <div class="row two">
-            <button class="btn" id="btnMagic" type="button">Send magic link</button>
-            <a class="btn" href="index.html" style="text-align:center">Continue</a>
-          </div>
-
-          <div style="height:10px"></div>
-
-          <div class="kbd">
-            Supabase configuration is provided in <b>/js/config.js</b>. Ensure your Supabase Auth Redirect URLs include your deployed site URL(s).
+            <div class="hint">
+              OldPeopleSpace is built to feel like the good internet—simple, personal, and a little bit playful.
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="hd"><h2>Overview</h2></div>
-        <div class="bd">
-          <p style="margin-top:0">
-            This site is a static front end. Supabase provides authentication and optional data persistence for posts and profiles.
-          </p>
-          <hr>
-          <small>
-            When database tables are unavailable, the application uses localStorage as a fallback.
-          </small>
-        </div>
+      <div class="footer">
+        <img src="logos/oldpeoplespace.png" alt="" />
+        <span>© <span id="yr"></span> OldPeopleSpace — A Place for Old Faces</span>
       </div>
-    </div>
-
-    <div class="footer">
-      <img src="logos/oldpeoplespace.png" alt="" />
-      &nbsp; © <span id="yr"></span> OldPeopleSpace. All rights reserved.
     </div>
   </div>
 
   <div class="toast" id="toast">
-    <div><b class="t-title">Notice</b></div>
-    <div class="t-msg"></div>
+    <div class="toast-title t-title">Notice</div>
+    <div class="toast-msg t-msg"></div>
   </div>
 </body>
 </html>

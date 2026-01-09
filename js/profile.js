@@ -1,8 +1,4 @@
 // /js/profile.js
-// Profile behavior for both p.html and profile.html.
-// p.html is treated as "My Profile" and requires auth.
-// profile.html supports optional public view via ?u=<username> when ops_profiles includes a 'username' column.
-
 (function () {
   "use strict";
 
@@ -17,20 +13,20 @@
       "Home Cooking",
       "Vintage Movies",
       "Walking Group",
-      "Local News"
+      "Local News",
     ];
 
     host.innerHTML = names
       .map(
         (n, i) => `
-        <div class="post">
-          <div class="meta">
-            <span>#${i + 1}</span>
-            <span class="badge">Top 8</span>
+          <div class="post">
+            <div class="post-meta">
+              <span>#${i + 1}</span>
+              <span>Top 8</span>
+            </div>
+            <div class="post-body">${window.Util.escapeHtml(n)}</div>
           </div>
-          <div class="content">${window.Util.escapeHtml(n)}</div>
-        </div>
-      `
+        `
       )
       .join("");
   }
@@ -41,7 +37,6 @@
       .select("display_name,bio,username,user_id")
       .eq("user_id", userId)
       .maybeSingle();
-
     if (error) throw error;
     return data || null;
   }
@@ -52,7 +47,6 @@
       .select("display_name,bio,username,user_id")
       .eq("username", username)
       .maybeSingle();
-
     if (error) throw error;
     return data || null;
   }
@@ -61,7 +55,7 @@
     const { error } = await sb.from("ops_profiles").upsert({
       user_id: userId,
       display_name,
-      bio
+      bio,
     });
     if (error) throw error;
   }
@@ -69,14 +63,18 @@
   document.addEventListener("DOMContentLoaded", async () => {
     window.Util.setYear();
 
-    const pageMode = document.body?.dataset?.profileMode || "me"; // "me" | "public"
+    const pageMode = document.body?.dataset?.profileMode || "me";
     const url = new URL(window.location.href);
     const usernameParam = (url.searchParams.get("u") || "").trim();
 
-    // Common header: if authed we show nav; for public view we still render header but hide signout if not authed.
     window.Util.renderTopbar("profile");
 
     const sb = window.SupabaseClient.getClient();
+    if (!sb) {
+      window.Util.toast("Setup needed", "Update /js/config.js with your Supabase URL and anon key.");
+      return;
+    }
+
     const top8Host = document.getElementById("top8");
     const myPostsHost = document.getElementById("myPosts");
 
@@ -88,18 +86,9 @@
 
     renderTop8(top8Host);
 
-    // Apply custom CSS only for authenticated "me" view
     if (pageMode === "me") {
       window.Util.applyProfileCssFromLocalStorage();
-    }
 
-    if (!sb) {
-      window.Util.toast("Configuration required", "Update /js/config.js with your Supabase URL and anon key.");
-      return;
-    }
-
-    // p.html is "My Profile" and must be authenticated
-    if (pageMode === "me") {
       const ok = await window.AuthGuard.requireAuth();
       if (!ok) return;
 
@@ -113,7 +102,6 @@
 Created: ${user?.created_at ? window.Util.formatTime(user.created_at) : "(unknown)"}`;
       }
 
-      // Load profile: Supabase primary, localStorage fallback
       const localKey = `ops_profile_${user.id}`;
       let profile = { display_name: "", bio: "" };
 
@@ -125,7 +113,6 @@ Created: ${user?.created_at ? window.Util.formatTime(user.created_at) : "(unknow
           if (saved) profile = saved;
         }
       } catch (e) {
-        console.warn("Supabase profile read failed; using localStorage fallback.", e);
         const saved = JSON.parse(localStorage.getItem(localKey) || "null");
         if (saved) profile = saved;
       }
@@ -138,14 +125,12 @@ Created: ${user?.created_at ? window.Util.formatTime(user.created_at) : "(unknow
         const bio = (bioEl?.value || "").trim();
 
         btnSave.disabled = true;
-
         try {
           await saveProfile(sb, user.id, display_name, bio);
-          window.Util.toast("Success", "Profile saved.");
+          window.Util.toast("Saved", "Your profile has been updated.");
         } catch (e) {
-          console.warn("Supabase profile upsert failed; saving locally.", e);
           localStorage.setItem(localKey, JSON.stringify({ display_name, bio }));
-          window.Util.toast("Saved", "Profile saved locally.");
+          window.Util.toast("Saved", "Your profile has been updated.");
         } finally {
           btnSave.disabled = false;
         }
@@ -155,33 +140,20 @@ Created: ${user?.created_at ? window.Util.formatTime(user.created_at) : "(unknow
       return;
     }
 
-    // profile.html can be used in a public view:
-    // - If ?u=<username> is present, attempt to render that user's profile from ops_profiles.username.
-    // - If no ?u and user is authenticated, show their profile in read-only mode.
-    // - If no ?u and not authenticated, show an informational message.
     if (pageMode === "public") {
       const { session, user } = await window.AuthGuard.getSession();
-
-      // Disable editing controls by default for public mode.
-      if (btnSave) btnSave.style.display = "none";
-      if (displayNameEl) displayNameEl.setAttribute("disabled", "true");
-      if (bioEl) bioEl.setAttribute("disabled", "true");
 
       try {
         let profile = null;
 
-        if (usernameParam) {
-          profile = await loadProfileByUsername(sb, usernameParam);
-        } else if (session && user) {
-          profile = await loadProfileByUserId(sb, user.id);
-        }
+        if (usernameParam) profile = await loadProfileByUsername(sb, usernameParam);
+        else if (session && user) profile = await loadProfileByUserId(sb, user.id);
 
         if (!profile) {
           if (profileName) profileName.textContent = "Profile";
-          if (profileSummary) profileSummary.textContent = "No profile data available.";
+          if (profileSummary) profileSummary.textContent = "A Place for Old Faces";
           if (displayNameEl) displayNameEl.value = "";
           if (bioEl) bioEl.value = "";
-          if (myPostsHost) myPostsHost.innerHTML = `<div class="kbd">Posts are not available in public view.</div>`;
           return;
         }
 
@@ -189,7 +161,6 @@ Created: ${user?.created_at ? window.Util.formatTime(user.created_at) : "(unknow
         if (profileSummary) profileSummary.textContent = "A Place for Old Faces";
         if (displayNameEl) displayNameEl.value = profile.display_name || "";
         if (bioEl) bioEl.value = profile.bio || "";
-        if (myPostsHost) myPostsHost.innerHTML = `<div class="kbd">Posts are not available in public view.</div>`;
       } catch (e) {
         console.error(e);
         window.Util.toast("Error", "Unable to load profile.");

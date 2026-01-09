@@ -1,10 +1,51 @@
+<!-- /404.html -->
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="refresh" content="0; url=./index.html#/feed" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>oldpeoplespace</title>
-  </head>
-  <body></body>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OldPeopleSpace — Not Found</title>
+
+  <link rel="icon" href="logos/oldpeoplespace.png" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script src="js/config.js" defer></script>
+  <script src="js/supabaseClient.js" defer></script>
+  <script src="js/util.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <div id="topbar" class="topbar"></div>
+
+  <div class="page">
+    <div class="frame">
+      <div class="module">
+        <div class="module-hd">
+          <div class="module-title">Page Not Found</div>
+        </div>
+        <div class="module-bd">
+          <div class="notice">
+            <div class="notice-title">404</div>
+            <div class="notice-text">That page isn’t here. Let’s get you back on track.</div>
+          </div>
+
+          <div class="actions">
+            <a class="btn primary" href="index.html">Go to Home</a>
+            <a class="btn" href="login.html">Go to Login</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <img src="logos/oldpeoplespace.png" alt="" />
+        <span>© <span id="yr"></span> OldPeopleSpace — A Place for Old Faces</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <div class="toast-title t-title">Notice</div>
+    <div class="toast-msg t-msg"></div>
+  </div>
+</body>
 </html>

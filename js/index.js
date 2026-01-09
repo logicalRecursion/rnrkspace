@@ -1,6 +1,4 @@
 // /js/index.js
-// Home page behavior (requires auth).
-
 (function () {
   "use strict";
 
@@ -33,7 +31,7 @@ Member since: ${user?.created_at ? window.Util.formatTime(user.created_at) : "(u
     btnPost?.addEventListener("click", async () => {
       const text = (postText?.value || "").trim();
       if (!text) {
-        window.Util.toast("Validation", "Please enter text before posting.");
+        window.Util.toast("Try again", "Write a quick update before posting.");
         return;
       }
 
@@ -41,11 +39,11 @@ Member since: ${user?.created_at ? window.Util.formatTime(user.created_at) : "(u
       try {
         await window.Feed.addPost(sb, user, text);
         if (postText) postText.value = "";
-        window.Util.toast("Success", "Post submitted.");
+        window.Util.toast("Posted", "Your update is live.");
         await window.Feed.loadFeed(sb, user, feedHost);
       } catch (e) {
         console.error(e);
-        window.Util.toast("Error", "Failed to submit post.");
+        window.Util.toast("Error", "Could not post your update.");
       } finally {
         btnPost.disabled = false;
       }

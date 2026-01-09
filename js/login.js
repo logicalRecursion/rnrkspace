@@ -1,6 +1,4 @@
 // /js/login.js
-// Login page behavior.
-
 (function () {
   "use strict";
 
@@ -9,11 +7,10 @@
 
     const sb = window.SupabaseClient.getClient();
     if (!sb) {
-      window.Util.toast("Configuration required", "Update /js/config.js with your Supabase URL and anon key.");
+      window.Util.toast("Setup needed", "Update /js/config.js with your Supabase URL and anon key.");
       return;
     }
 
-    // If already authenticated, redirect to home.
     const { session } = await window.AuthGuard.getSession();
     if (session) {
       window.location.href = "index.html";
@@ -32,7 +29,7 @@
       const password = (passEl?.value || "").trim();
 
       if (!email || !password) {
-        window.Util.toast("Validation", "Email and password are required.");
+        window.Util.toast("Missing info", "Email and password are required.");
         return;
       }
 
@@ -54,7 +51,7 @@
       const password = (passEl?.value || "").trim();
 
       if (!email || !password) {
-        window.Util.toast("Validation", "Email and password are required.");
+        window.Util.toast("Missing info", "Email and password are required.");
         return;
       }
 
@@ -68,22 +65,18 @@
         return;
       }
 
-      window.Util.toast(
-        "Account created",
-        "If email confirmation is enabled, confirm your email before logging in."
-      );
+      window.Util.toast("Welcome", "Account created. If email confirmation is enabled, check your inbox.");
     });
 
     btnMagic?.addEventListener("click", async () => {
       const email = (emailEl?.value || "").trim();
       if (!email) {
-        window.Util.toast("Validation", "Email is required.");
+        window.Util.toast("Missing info", "Enter your email first.");
         return;
       }
 
       btnMagic.disabled = true;
 
-      // Redirect to index.html after the email link completes authentication.
       const redirectTo = `${window.location.origin}${window.location.pathname.replace("login.html", "index.html")}`;
 
       const { error } = await sb.auth.signInWithOtp({
@@ -99,7 +92,7 @@
         return;
       }
 
-      window.Util.toast("Magic link sent", "Please check your email.");
+      window.Util.toast("Check your email", "Your magic link is on the way.");
     });
   });
 })();

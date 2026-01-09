@@ -1,6 +1,4 @@
 // /js/supabaseClient.js
-// Creates a singleton Supabase client using the global 'supabase' object from the CDN script.
-
 (function () {
   "use strict";
 

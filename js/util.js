@@ -1,6 +1,4 @@
 // /js/util.js
-// Shared UI and formatting utilities.
-
 (function () {
   "use strict";
 
@@ -52,7 +50,7 @@
   async function signOut() {
     const sb = window.SupabaseClient?.getClient?.();
     if (!sb) {
-      toast("Configuration required", "Update /js/config.js with your Supabase URL and anon key.");
+      toast("Setup needed", "Update /js/config.js with your Supabase URL and anon key.");
       return;
     }
     await sb.auth.signOut();
@@ -63,25 +61,32 @@
     const host = qs("#topbar");
     if (!host) return;
 
-    const isActive = (k) => (active === k ? "primary" : "");
+    const link = (href, label, key) => {
+      const cls = key === active ? "toplink active" : "toplink";
+      return `<a class="${cls}" href="${href}">${label}</a>`;
+    };
 
     host.innerHTML = `
       <div class="topbar-inner">
-        <div class="brand">
-          <a href="index.html" aria-label="OldPeopleSpace Home">
-            <img src="logos/oldpeoplespace.png" alt="OldPeopleSpace logo">
-          </a>
-          <div class="tag">
-            <strong>OldPeopleSpace</strong>
-            <span>A Place for Old Faces</span>
+        <a class="brand" href="index.html" aria-label="OldPeopleSpace">
+          <img src="logos/oldpeoplespace.png" alt="OldPeopleSpace logo" />
+          <div class="brand-text">
+            <div class="brand-title">OldPeopleSpace</div>
+            <div class="brand-tag">A Place for Old Faces</div>
           </div>
-        </div>
+        </a>
 
-        <div class="nav">
-          <a class="pill ${isActive("home")}" href="index.html">Home</a>
-          <a class="pill ${isActive("profile")}" href="p.html">Profile</a>
-          <a class="pill ${isActive("settings")}" href="settings.html">Settings</a>
-          <button class="pill danger" id="btnSignOut" type="button">Sign out</button>
+        <div class="topnav">
+          ${link("index.html", "Home", "home")}
+          ${link("p.html", "Profile", "profile")}
+          ${link("settings.html", "Settings", "settings")}
+          <button class="toplink" id="btnSignOut" type="button">Sign out</button>
+        </div>
+      </div>
+
+      <div class="topbar-sub">
+        <div class="topbar-sub-inner">
+          <span class="submsg">No pressure. No noise. Just familiar faces.</span>
         </div>
       </div>
     `;

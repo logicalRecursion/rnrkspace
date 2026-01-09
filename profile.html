@@ -1,3 +1,4 @@
+<!-- /profile.html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,7 +9,6 @@
   <link rel="icon" href="logos/oldpeoplespace.png" />
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- Supabase JS (browser CDN). -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script src="js/config.js" defer></script>
@@ -20,69 +20,113 @@
   <script src="js/profile.js" defer></script>
 </head>
 <body data-profile-mode="public">
-  <div class="topbar" id="topbar"></div>
+  <div id="topbar" class="topbar"></div>
 
-  <div class="container">
-    <div class="banner">
-      <b>Profile</b> — A Place for Old Faces
-    </div>
+  <div class="page">
+    <div class="frame">
+      <div class="layout-2005">
+        <div class="col left">
+          <div class="module">
+            <div class="module-hd">
+              <div class="module-title">Profile</div>
+              <div class="module-chip" id="profileName">Loading…</div>
+            </div>
+            <div class="module-bd">
+              <div class="profile-badge">
+                <img class="profile-badge-logo" src="logos/oldpeoplespace.png" alt="" />
+                <div class="profile-badge-text">
+                  <div class="profile-badge-title">OldPeopleSpace</div>
+                  <div class="profile-badge-sub">A Place for Old Faces</div>
+                </div>
+              </div>
 
-    <div class="grid">
-      <div class="card">
-        <div class="hd"><h2>Profile</h2><span class="badge" id="profileName">Loading…</span></div>
-        <div class="bd">
-          <div class="kbd" id="profileSummary">Loading profile…</div>
+              <div class="divider"></div>
 
-          <hr>
+              <div class="cardline" id="profileSummary">Loading profile…</div>
+              <div class="hint">
+                Share this page with a friend using <span class="mono">?u=username</span> (if enabled).
+              </div>
+            </div>
+          </div>
 
-          <div class="card" style="box-shadow:none;border-radius:16px">
-            <div class="hd"><h2>Top 8</h2><span class="badge">Placeholder</span></div>
-            <div class="bd">
-              <div class="list" id="top8"></div>
+          <div class="module">
+            <div class="module-hd">
+              <div class="module-title">Top 8</div>
+              <div class="module-chip">Classic</div>
+            </div>
+            <div class="module-bd">
+              <div class="top8" id="top8"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col main">
+          <div class="module">
+            <div class="module-hd">
+              <div class="module-title">About</div>
+              <div class="module-chip">View</div>
+            </div>
+            <div class="module-bd">
+              <label class="label" for="displayName">Display name</label>
+              <input id="displayName" class="input" placeholder="Display name" disabled />
+
+              <label class="label" for="bio">Bio</label>
+              <textarea id="bio" class="textarea" placeholder="Bio" disabled></textarea>
+
+              <div class="notice slim">
+                <div class="notice-title">Heads up</div>
+                <div class="notice-text">Public view is read-only. For edits, use My Profile.</div>
+              </div>
+
+              <div class="actions">
+                <a class="btn primary" href="p.html">My Profile</a>
+                <a class="btn" href="index.html">Home</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col right">
+          <div class="module">
+            <div class="module-hd">
+              <div class="module-title">Good Vibes</div>
+            </div>
+            <div class="module-bd">
+              <ul class="rules">
+                <li>Be kind.</li>
+                <li>Keep it human.</li>
+                <li>Stay classy.</li>
+              </ul>
+              <div class="hint">
+                OldPeopleSpace is a cozy corner of the internet.
+              </div>
+            </div>
+          </div>
+
+          <div class="module">
+            <div class="module-hd">
+              <div class="module-title">Shortcuts</div>
+            </div>
+            <div class="module-bd">
+              <ul class="linklist">
+                <li><a href="login.html">Login</a></li>
+                <li><a href="settings.html">Settings</a></li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="hd"><h2>About</h2><span class="badge">View only</span></div>
-        <div class="bd">
-          <div class="label"><span>Display name</span><small>read-only</small></div>
-          <input id="displayName" placeholder="Display name" />
-
-          <div style="height:10px"></div>
-
-          <div class="label"><span>Bio</span><small>read-only</small></div>
-          <textarea id="bio" placeholder="Bio"></textarea>
-
-          <hr>
-
-          <div class="kbd">
-            Public profile view supports <b>?u=username</b> when <b>ops_profiles.username</b> exists and is readable via RLS.
-          </div>
-
-          <div style="height:10px"></div>
-
-          <div class="card" style="box-shadow:none;border-radius:16px">
-            <div class="hd"><h2>Posts</h2><span class="badge">Not available</span></div>
-            <div class="bd">
-              <div class="list" id="myPosts"></div>
-            </div>
-          </div>
-
-        </div>
+      <div class="footer">
+        <img src="logos/oldpeoplespace.png" alt="" />
+        <span>© <span id="yr"></span> OldPeopleSpace — A Place for Old Faces</span>
       </div>
-    </div>
-
-    <div class="footer">
-      <img src="logos/oldpeoplespace.png" alt="" />
-      &nbsp; © <span id="yr"></span> OldPeopleSpace. All rights reserved.
     </div>
   </div>
 
   <div class="toast" id="toast">
-    <div><b class="t-title">Notice</b></div>
-    <div class="t-msg"></div>
+    <div class="toast-title t-title">Notice</div>
+    <div class="toast-msg t-msg"></div>
   </div>
 </body>
 </html>
