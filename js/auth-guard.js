@@ -1,31 +1,26 @@
-(async () => {
-  const { $, pageYear, getSession } = window.opsUtil;
-  pageYear();
+// /js/auth-guard.js
+// Route protection helpers for pages requiring authentication.
 
-  const authStatus = $("authStatus");
-  const btnSignOut = $("btnSignOut");
+(function () {
+  "use strict";
 
-  const session = await getSession();
-  const onLoginPage = window.location.pathname.endsWith("/login.html");
+  async function getSession() {
+    const sb = window.SupabaseClient?.getClient?.();
+    if (!sb) return { sb: null, session: null, user: null };
 
-  if (!session && !onLoginPage) {
-    window.location.href = "./login.html";
-    return;
+    const { data } = await sb.auth.getSession();
+    const session = data?.session || null;
+    return { sb, session, user: session?.user || null };
   }
 
-  if (session && onLoginPage) {
-    window.location.href = "./p.html";
-    return;
+  async function requireAuth() {
+    const { session } = await getSession();
+    if (!session) {
+      window.location.href = "login.html";
+      return false;
+    }
+    return true;
   }
 
-  if (authStatus) {
-    authStatus.textContent = session ? `Signed in as ${session.user.email}` : "Not signed in";
-  }
-
-  if (btnSignOut) {
-    btnSignOut.addEventListener("click", async () => {
-      await window.opsUtil.signOut();
-      window.location.href = "./login.html";
-    });
-  }
+  window.AuthGuard = { getSession, requireAuth };
 })();

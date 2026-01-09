@@ -1,62 +1,89 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Profile</title>
-  <link rel="stylesheet" href="./style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OldPeopleSpace — My Profile</title>
+
+  <link rel="icon" href="logos/oldpeoplespace.png" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Supabase JS (browser CDN). -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/config.js" defer></script>
+  <script src="js/supabaseClient.js" defer></script>
+  <script src="js/util.js" defer></script>
+  <script src="js/auth-guard.js" defer></script>
+  <script src="js/feed.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/profile.js" defer></script>
 </head>
-<body>
-  <div class="topbar">
-    <div class="page">
-      <span class="logo">MySpace</span>
-      <span class="nav">
-        <a href="./index.html">Home</a>
-        <a href="./login.html">Login</a>
-        <a href="./settings.html">Settings</a>
-      </span>
+<body data-profile-mode="me">
+  <div class="topbar" id="topbar"></div>
+
+  <div class="container">
+    <div class="banner">
+      <b>Profile</b> — A Place for Old Faces
     </div>
-  </div>
 
-  <div class="page">
-    <div class="columns">
-      <div>
-        <div class="module">
-          <div class="module-title" id="nameBox">Profile</div>
-          <div class="module-body">
-            <div class="small"><b id="headline"></b></div>
-            <div class="small muted" id="profileUrl"></div>
-          </div>
-        </div>
+    <div class="grid">
+      <div class="card">
+        <div class="hd"><h2>Summary</h2><span class="badge" id="profileName">Loading…</span></div>
+        <div class="bd" id="profileLeft">
+          <div class="kbd" id="profileSummary">Loading your information…</div>
 
-        <div class="module">
-          <div class="module-title">Interests</div>
-          <div class="module-body small" id="interests"></div>
-        </div>
-      </div>
+          <hr>
 
-      <div>
-        <div class="module">
-          <div class="module-title">About Me</div>
-          <div class="module-body small" id="aboutMe"></div>
-        </div>
-
-        <div class="module">
-          <div class="module-title">Comments</div>
-          <div class="module-body">
-            <div id="commentGuard" class="small muted"></div>
-            <textarea id="commentBody" class="input textarea" placeholder="Write a comment..."></textarea>
-            <div class="row">
-              <button id="post" class="btn">Post Comment</button>
-              <div id="msg" class="small muted"></div>
+          <div class="card" style="box-shadow:none;border-radius:16px">
+            <div class="hd"><h2>Top 8</h2><span class="badge">Placeholder</span></div>
+            <div class="bd">
+              <div class="list" id="top8"></div>
             </div>
-            <div id="commentList" class="comment-list"></div>
           </div>
         </div>
       </div>
+
+      <div class="card">
+        <div class="hd"><h2>About</h2><span class="badge">Editable</span></div>
+        <div class="bd">
+          <div class="label"><span>Display name</span><small>stored when profile table exists</small></div>
+          <input id="displayName" placeholder="Display name" />
+
+          <div style="height:10px"></div>
+
+          <div class="label"><span>Bio</span><small>optional</small></div>
+          <textarea id="bio" placeholder="Bio"></textarea>
+
+          <div style="height:10px"></div>
+
+          <div class="row two">
+            <button class="btn primary" id="btnSaveProfile" type="button">Save</button>
+            <a class="btn" href="index.html">Home</a>
+          </div>
+
+          <hr>
+
+          <div class="card" style="box-shadow:none;border-radius:16px">
+            <div class="hd"><h2>Recent Posts</h2><span class="badge">Last 10</span></div>
+            <div class="bd">
+              <div class="list" id="myPosts"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <img src="logos/oldpeoplespace.png" alt="" />
+      &nbsp; © <span id="yr"></span> OldPeopleSpace. All rights reserved.
     </div>
   </div>
 
-  <script type="module" src="./profile.js"></script>
+  <div class="toast" id="toast">
+    <div><b class="t-title">Notice</b></div>
+    <div class="t-msg"></div>
+  </div>
 </body>
 </html>

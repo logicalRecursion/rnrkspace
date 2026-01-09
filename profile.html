@@ -1,86 +1,88 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>oldpeoplespace — profile</title>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OldPeopleSpace — Profile</title>
 
-  <body>
-    <header class="topbar">
-      <div class="brandRow">
-        <div class="logo">ops</div>
-        <div>
-          <div class="brandName">oldpeoplespace</div>
-          <div class="muted small">the nostalgically social place</div>
-        </div>
-      </div>
+  <link rel="icon" href="logos/oldpeoplespace.png" />
+  <link rel="stylesheet" href="css/style.css" />
 
-      <nav class="nav">
-        <a class="navLink" href="./login.html">Login</a>
-        <a class="navLink" href="./p.html">Feed</a>
-        <a class="navLink active" href="./profile.html">Profile</a>
-        <a class="navLink" href="./settings.html">Settings</a>
-      </nav>
+  <!-- Supabase JS (browser CDN). -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-      <div class="right">
-        <span id="authStatus" class="muted small">…</span>
-        <button id="btnSignOut" class="btn btnSecondary">Sign out</button>
-      </div>
-    </header>
+  <script src="js/config.js" defer></script>
+  <script src="js/supabaseClient.js" defer></script>
+  <script src="js/util.js" defer></script>
+  <script src="js/auth-guard.js" defer></script>
+  <script src="js/feed.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/profile.js" defer></script>
+</head>
+<body data-profile-mode="public">
+  <div class="topbar" id="topbar"></div>
 
-    <main class="container">
-      <section class="panel">
-        <div class="routeHeader">
-          <h1>My profile</h1>
-          <p class="muted">Set your oldpeoplespace identity.</p>
-        </div>
+  <div class="container">
+    <div class="banner">
+      <b>Profile</b> — A Place for Old Faces
+    </div>
 
-        <div class="grid2">
-          <div class="card">
-            <h2>Edit</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="hd"><h2>Profile</h2><span class="badge" id="profileName">Loading…</span></div>
+        <div class="bd">
+          <div class="kbd" id="profileSummary">Loading profile…</div>
 
-            <label class="label">Username</label>
-            <input id="inUsername" class="input" placeholder="coolperson123" />
+          <hr>
 
-            <label class="label">Display name</label>
-            <input id="inDisplayName" class="input" placeholder="Cool Person" />
-
-            <label class="label">Bio</label>
-            <textarea id="inBio" class="textarea" rows="4" placeholder="I love music, dashboards, and snacks."></textarea>
-
-            <button id="btnSaveProfile" class="btn">Save profile</button>
-            <div id="profileMsg" class="msg"></div>
-          </div>
-
-          <div class="card">
-            <h2>Preview</h2>
-            <div class="profilePreview">
-              <div class="avatar" id="profileAvatar">ops</div>
-              <div>
-                <div class="ppName" id="ppName">—</div>
-                <div class="ppUser muted" id="ppUser">@—</div>
-              </div>
+          <div class="card" style="box-shadow:none;border-radius:16px">
+            <div class="hd"><h2>Top 8</h2><span class="badge">Placeholder</span></div>
+            <div class="bd">
+              <div class="list" id="top8"></div>
             </div>
-
-            <div class="ppBio" id="ppBio">—</div>
-            <div class="muted small mono" id="ppMeta">—</div>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
 
-    <footer class="footer">
-      <div>© <span id="year"></span> oldpeoplespace</div>
-      <div class="muted small">Keep usernames simple: a-z 0-9 _</div>
-    </footer>
+      <div class="card">
+        <div class="hd"><h2>About</h2><span class="badge">View only</span></div>
+        <div class="bd">
+          <div class="label"><span>Display name</span><small>read-only</small></div>
+          <input id="displayName" placeholder="Display name" />
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="./config.js"></script>
-    <script src="./supabaseClient.js"></script>
-    <script src="./util.js"></script>
-    <script src="./auth-guard.js"></script>
-    <script src="./profile.js"></script>
-  </body>
+          <div style="height:10px"></div>
+
+          <div class="label"><span>Bio</span><small>read-only</small></div>
+          <textarea id="bio" placeholder="Bio"></textarea>
+
+          <hr>
+
+          <div class="kbd">
+            Public profile view supports <b>?u=username</b> when <b>ops_profiles.username</b> exists and is readable via RLS.
+          </div>
+
+          <div style="height:10px"></div>
+
+          <div class="card" style="box-shadow:none;border-radius:16px">
+            <div class="hd"><h2>Posts</h2><span class="badge">Not available</span></div>
+            <div class="bd">
+              <div class="list" id="myPosts"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <img src="logos/oldpeoplespace.png" alt="" />
+      &nbsp; © <span id="yr"></span> OldPeopleSpace. All rights reserved.
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <div><b class="t-title">Notice</b></div>
+    <div class="t-msg"></div>
+  </div>
+</body>
 </html>

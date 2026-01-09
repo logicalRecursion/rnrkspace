@@ -1,68 +1,74 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Settings</title>
-  <link rel="stylesheet" href="./style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OldPeopleSpace — Settings</title>
+
+  <link rel="icon" href="logos/oldpeoplespace.png" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Supabase JS (browser CDN). -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/config.js" defer></script>
+  <script src="js/supabaseClient.js" defer></script>
+  <script src="js/util.js" defer></script>
+  <script src="js/auth-guard.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/settings.js" defer></script>
 </head>
 <body>
-  <div class="topbar">
-    <div class="page">
-      <span class="logo">MySpace</span>
-      <span class="nav">
-        <a href="./index.html">Home</a>
-        <a href="./login.html">Login</a>
-        <a href="./settings.html">Settings</a>
-      </span>
+  <div class="topbar" id="topbar"></div>
+
+  <div class="container">
+    <div class="banner">
+      <b>Settings</b> — A Place for Old Faces
     </div>
-  </div>
 
-  <div class="page">
-    <div class="module">
-      <div class="module-title">Profile Settings</div>
-      <div class="module-body">
-        <div id="guard" class="small muted"></div>
-
-        <div class="grid">
-          <label class="small">Username</label>
-          <input id="username" class="input" />
-
-          <label class="small">Display name</label>
-          <input id="displayName" class="input" />
-
-          <label class="small">Headline</label>
-          <input id="headline" class="input" />
-
-          <label class="small">About Me</label>
-          <textarea id="aboutMe" class="input textarea"></textarea>
-
-          <label class="small">Interests</label>
-          <textarea id="interests" class="input textarea"></textarea>
+    <div class="grid">
+      <div class="card">
+        <div class="hd"><h2>Account</h2><span class="badge" id="acctBadge">Loading…</span></div>
+        <div class="bd">
+          <div class="kbd" id="acctInfo">Checking session…</div>
+          <hr>
+          <button class="btn danger" id="btnSignOut2" type="button">Sign out</button>
         </div>
+      </div>
 
-        <div class="row">
-          <button id="save" class="btn">Save</button>
-          <a id="view" class="link" href="#">View my profile</a>
+      <div class="card">
+        <div class="hd"><h2>Profile Theme</h2><span class="badge">Custom CSS</span></div>
+        <div class="bd">
+          <div class="label"><span>Custom CSS</span><small>applies to My Profile (p.html)</small></div>
+          <textarea id="customCss" placeholder="/* Example:
+#profileLeft .kbd { border-color: rgba(76,187,23,.55); }
+*/"></textarea>
+
+          <div style="height:10px"></div>
+
+          <div class="row two">
+            <button class="btn primary" id="btnSaveCss" type="button">Save</button>
+            <button class="btn" id="btnResetCss" type="button">Reset</button>
+          </div>
+
+          <hr>
+
+          <div class="kbd">
+            Custom CSS is stored locally. If you want per-user persistence, add a custom_css column to ops_profiles and load it server-side via RLS.
+          </div>
         </div>
-
-        <hr />
-
-        <div class="small"><b>Theme</b> (safe CSS vars)</div>
-        <div class="grid">
-          <label class="small">bg</label><input id="t_bg" class="input" />
-          <label class="small">panel</label><input id="t_panel" class="input" />
-          <label class="small">border</label><input id="t_border" class="input" />
-          <label class="small">accent</label><input id="t_accent" class="input" />
-          <label class="small">text</label><input id="t_text" class="input" />
-          <label class="small">font</label><input id="t_font" class="input" />
-        </div>
-
-        <div id="msg" class="small muted"></div>
       </div>
     </div>
+
+    <div class="footer">
+      <img src="logos/oldpeoplespace.png" alt="" />
+      &nbsp; © <span id="yr"></span> OldPeopleSpace. All rights reserved.
+    </div>
   </div>
 
-  <script type="module" src="./settings.js"></script>
+  <div class="toast" id="toast">
+    <div><b class="t-title">Notice</b></div>
+    <div class="t-msg"></div>
+  </div>
 </body>
 </html>

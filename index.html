@@ -1,80 +1,78 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>oldpeoplespace — login</title>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OldPeopleSpace — Home</title>
 
-  <body>
-    <header class="topbar">
-      <div class="brandRow">
-        <div class="logo">ops</div>
-        <div>
-          <div class="brandName">oldpeoplespace</div>
-          <div class="muted small">the nostalgically social place</div>
+  <link rel="icon" href="logos/oldpeoplespace.png" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Supabase JS (browser CDN). -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/config.js" defer></script>
+  <script src="js/supabaseClient.js" defer></script>
+  <script src="js/util.js" defer></script>
+  <script src="js/auth-guard.js" defer></script>
+  <script src="js/feed.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/index.js" defer></script>
+</head>
+<body>
+  <div class="topbar" id="topbar"></div>
+
+  <div class="container">
+    <div class="banner">
+      <b>OldPeopleSpace</b> — A Place for Old Faces
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="hd"><h2>Account</h2><span class="badge" id="userBadge">Loading…</span></div>
+        <div class="bd">
+          <div class="kbd" id="myCardText">Checking session…</div>
+          <div style="height:10px"></div>
+          <a class="btn primary" href="p.html">Open Profile</a>
+          <a class="btn" href="settings.html" style="margin-left:8px">Open Settings</a>
         </div>
       </div>
 
-      <nav class="nav">
-        <a class="navLink active" href="./login.html">Login</a>
-        <a class="navLink" href="./p.html">Feed</a>
-        <a class="navLink" href="./profile.html">Profile</a>
-        <a class="navLink" href="./settings.html">Settings</a>
-      </nav>
+      <div class="card">
+        <div class="hd"><h2>Updates</h2><span class="badge">Feed</span></div>
+        <div class="bd">
+          <div class="label">
+            <span>Post an update</span>
+            <small>short form</small>
+          </div>
+          <textarea id="postText" placeholder="Write an update..."></textarea>
 
-      <div class="right muted small" id="authStatus">Not signed in</div>
-    </header>
+          <div style="height:10px"></div>
 
-    <main class="container">
-      <section class="panel">
-        <h1>Welcome back</h1>
-        <p class="muted">Sign in to oldpeoplespace.</p>
-
-        <div class="grid2">
-          <div class="card">
-            <h2>Sign in</h2>
-
-            <label class="label">Email</label>
-            <input id="inSignInEmail" class="input" type="email" placeholder="you@email.com" />
-
-            <label class="label">Password</label>
-            <input id="inSignInPassword" class="input" type="password" placeholder="••••••••" />
-
-            <button id="btnSignIn" class="btn">Sign in</button>
-            <div id="signInMsg" class="msg"></div>
+          <div class="row two">
+            <button class="btn primary" id="btnPost" type="button">Post</button>
+            <button class="btn" id="btnRefresh" type="button">Refresh</button>
           </div>
 
-          <div class="card">
-            <h2>Create account</h2>
+          <hr>
 
-            <label class="label">Email</label>
-            <input id="inSignUpEmail" class="input" type="email" placeholder="you@email.com" />
+          <div class="list" id="feed"></div>
 
-            <label class="label">Password</label>
-            <input id="inSignUpPassword" class="input" type="password" placeholder="min 6 chars" />
-
-            <button id="btnSignUp" class="btn">Create account</button>
-            <div class="muted small">
-              If email confirmations are ON in Supabase, you’ll need to confirm before signing in.
-            </div>
-
-            <div id="signUpMsg" class="msg"></div>
-          </div>
+          <div style="height:10px"></div>
+          <small>Storage target: Supabase table <b>ops_posts</b> when available; localStorage fallback otherwise.</small>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
 
-    <footer class="footer">
-      <div>© <span id="year"></span> oldpeoplespace</div>
-      <div class="muted small">Supabase + nostalgia.</div>
-    </footer>
+    <div class="footer">
+      <img src="logos/oldpeoplespace.png" alt="" />
+      &nbsp; © <span id="yr"></span> OldPeopleSpace. All rights reserved.
+    </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="./config.js"></script>
-    <script src="./supabaseClient.js"></script>
-    <script src="./util.js"></script>
-    <script src="./login.js"></script>
-  </body>
+  <div class="toast" id="toast">
+    <div><b class="t-title">Notice</b></div>
+    <div class="t-msg"></div>
+  </div>
+</body>
 </html>

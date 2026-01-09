@@ -1,125 +1,129 @@
-(async () => {
-  const sb = window.opsSupabase;
-  const { $, setMsg, escapeHtml, formatDate, getSession, pageYear } = window.opsUtil;
+// /js/feed.js
+// Feed storage adapter: Supabase primary, localStorage fallback.
 
-  pageYear();
+(function () {
+  "use strict";
 
-  const authStatus = $("authStatus");
-  const btnSignOut = $("btnSignOut");
+  function localPostsKey(user) {
+    return `ops_posts_${user?.id || "anon"}`;
+  }
 
-  const inPostBody = $("inPostBody");
-  const btnCreatePost = $("btnCreatePost");
-  const postMsg = $("postMsg");
-  const feedList = $("feedList");
+  async function addPost(sb, user, content) {
+    if (sb) {
+      const { error } = await sb.from("ops_posts").insert({
+        user_id: user.id,
+        content: content,
+      });
 
-  const session = await getSession();
-  if (!session) return;
+      if (!error) return;
+      console.warn("Supabase insert failed; using localStorage fallback.", error);
+    }
 
-  if (authStatus) authStatus.textContent = `Signed in as ${session.user.email}`;
-  if (btnSignOut) {
-    btnSignOut.addEventListener("click", async () => {
-      await window.opsUtil.signOut();
-      window.location.href = "./login.html";
+    const k = localPostsKey(user);
+    const arr = JSON.parse(localStorage.getItem(k) || "[]");
+    arr.unshift({
+      id: crypto.randomUUID(),
+      user_id: user.id,
+      content,
+      created_at: new Date().toISOString(),
     });
+    localStorage.setItem(k, JSON.stringify(arr));
   }
 
-  async function ensureProfile() {
-    const user = session.user;
+  async function loadFeed(sb, user, hostEl) {
+    if (!hostEl) return;
 
-    const { data: existing, error: selErr } = await sb
-      .from("profiles")
-      .select("*")
-      .eq("id", user.id)
-      .maybeSingle();
+    hostEl.innerHTML = "";
+    let items = [];
 
-    if (selErr) throw selErr;
-    if (existing) return existing;
+    if (sb) {
+      const { data, error } = await sb
+        .from("ops_posts")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(25);
 
-    const email = user.email || "";
-    const fallbackUsername = ("ops_" + user.id.slice(0, 8)).toLowerCase();
+      if (!error && Array.isArray(data)) {
+        items = data;
+      } else {
+        console.warn("Supabase select failed; using localStorage fallback.", error);
+      }
+    }
 
-    const { data: created, error: insErr } = await sb
-      .from("profiles")
-      .insert({
-        id: user.id,
-        username: fallbackUsername,
-        display_name: email.split("@")[0] || "oldpeoplespace user",
-        bio: "Just joined oldpeoplespace."
-      })
-      .select("*")
-      .single();
+    if (!items.length) {
+      const k = localPostsKey(user);
+      items = JSON.parse(localStorage.getItem(k) || "[]");
+    }
 
-    if (insErr) throw insErr;
-    return created;
-  }
-
-  async function loadFeed() {
-    feedList.innerHTML = `<div class="muted small">Loading…</div>`;
-
-    const { data, error } = await sb
-      .from("posts")
-      .select("id, body, created_at, user_id, profiles(username, display_name)")
-      .order("created_at", { ascending: false })
-      .limit(30);
-
-    if (error) {
-      feedList.innerHTML = `<div class="msg err">Could not load feed: ${escapeHtml(error.message)}</div>`;
+    if (!items.length) {
+      hostEl.innerHTML = `<div class="kbd">No posts available.</div>`;
       return;
     }
 
-    if (!data?.length) {
-      feedList.innerHTML = `<div class="muted">No posts yet. Be the first oldpeoplespace legend.</div>`;
-      return;
-    }
+    const handle = (user?.email || "user").split("@")[0];
 
-    feedList.innerHTML = data.map((p) => {
-      const prof = p.profiles || {};
-      const name = escapeHtml(prof.display_name || prof.username || "oldpeoplespace user");
-      const user = escapeHtml(prof.username ? "@" + prof.username : p.user_id.slice(0, 8));
-      const body = escapeHtml(p.body);
-      const when = escapeHtml(formatDate(p.created_at));
-
-      return `
+    hostEl.innerHTML = items
+      .map(
+        (p) => `
         <div class="post">
-          <div class="postMeta">
-            <div><strong>${name}</strong> <span class="muted">${user}</span></div>
-            <div>${when}</div>
+          <div class="meta">
+            <span>@${window.Util.escapeHtml(handle)}</span>
+            <span>${window.Util.escapeHtml(window.Util.formatTime(p.created_at))}</span>
           </div>
-          <div class="postBody">${body}</div>
+          <div class="content">${window.Util.escapeHtml(p.content)}</div>
         </div>
-      `;
-    }).join("");
+      `
+      )
+      .join("");
   }
 
-  async function createPost() {
-    const body = inPostBody.value.trim();
+  async function loadMyPosts(sb, user, hostEl) {
+    if (!hostEl) return;
+    hostEl.innerHTML = "";
 
-    if (!body) { setMsg(postMsg, "Write something first.", "err"); return; }
-    if (body.length > 500) { setMsg(postMsg, "Keep it under 500 characters.", "err"); return; }
+    let items = [];
 
-    btnCreatePost.disabled = true;
-    setMsg(postMsg, "Posting…", "");
+    if (sb) {
+      const { data, error } = await sb
+        .from("ops_posts")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(10);
 
-    const { error } = await sb.from("posts").insert({
-      user_id: session.user.id,
-      body
-    });
+      if (!error && Array.isArray(data)) {
+        items = data;
+      } else {
+        console.warn("Supabase my-posts select failed; using localStorage fallback.", error);
+      }
+    }
 
-    btnCreatePost.disabled = false;
+    if (!items.length) {
+      const k = localPostsKey(user);
+      items = JSON.parse(localStorage.getItem(k) || "[]").slice(0, 10);
+    }
 
-    if (error) {
-      setMsg(postMsg, `Could not post: ${error.message}`, "err");
+    if (!items.length) {
+      hostEl.innerHTML = `<div class="kbd">No posts available.</div>`;
       return;
     }
 
-    inPostBody.value = "";
-    setMsg(postMsg, "Posted to oldpeoplespace.", "ok");
-    await loadFeed();
+    const handle = (user?.email || "user").split("@")[0];
+
+    hostEl.innerHTML = items
+      .map(
+        (p) => `
+        <div class="post">
+          <div class="meta">
+            <span>@${window.Util.escapeHtml(handle)}</span>
+            <span>${window.Util.escapeHtml(window.Util.formatTime(p.created_at))}</span>
+          </div>
+          <div class="content">${window.Util.escapeHtml(p.content)}</div>
+        </div>
+      `
+      )
+      .join("");
   }
 
-  btnCreatePost.addEventListener("click", createPost);
-
-  // init
-  await ensureProfile();
-  await loadFeed();
+  window.Feed = { addPost, loadFeed, loadMyPosts };
 })();

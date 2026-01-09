@@ -1,79 +1,105 @@
-(() => {
-  const sb = window.opsSupabase;
-  const { $, setMsg, redirectToBase, pageYear } = window.opsUtil;
+// /js/login.js
+// Login page behavior.
 
-  pageYear();
+(function () {
+  "use strict";
 
-  const inSignInEmail = $("inSignInEmail");
-  const inSignInPassword = $("inSignInPassword");
-  const btnSignIn = $("btnSignIn");
-  const signInMsg = $("signInMsg");
+  document.addEventListener("DOMContentLoaded", async () => {
+    window.Util.setYear();
 
-  const inSignUpEmail = $("inSignUpEmail");
-  const inSignUpPassword = $("inSignUpPassword");
-  const btnSignUp = $("btnSignUp");
-  const signUpMsg = $("signUpMsg");
-
-  const authStatus = $("authStatus");
-  if (authStatus) authStatus.textContent = "Not signed in";
-
-  async function signIn() {
-    setMsg(signInMsg, "");
-    const email = inSignInEmail.value.trim();
-    const password = inSignInPassword.value;
-
-    if (!email || !password) {
-      setMsg(signInMsg, "Email + password required.", "err");
+    const sb = window.SupabaseClient.getClient();
+    if (!sb) {
+      window.Util.toast("Configuration required", "Update /js/config.js with your Supabase URL and anon key.");
       return;
     }
 
-    btnSignIn.disabled = true;
-    setMsg(signInMsg, "Signing in…", "");
-
-    const { error } = await sb.auth.signInWithPassword({ email, password });
-
-    btnSignIn.disabled = false;
-
-    if (error) {
-      setMsg(signInMsg, error.message, "err");
+    // If already authenticated, redirect to home.
+    const { session } = await window.AuthGuard.getSession();
+    if (session) {
+      window.location.href = "index.html";
       return;
     }
 
-    setMsg(signInMsg, "Signed in. Taking you to the feed…", "ok");
-    window.location.href = "./p.html";
-  }
+    const emailEl = document.getElementById("email");
+    const passEl = document.getElementById("password");
 
-  async function signUp() {
-    setMsg(signUpMsg, "");
-    const email = inSignUpEmail.value.trim();
-    const password = inSignUpPassword.value;
+    const btnLogin = document.getElementById("btnLogin");
+    const btnSignup = document.getElementById("btnSignup");
+    const btnMagic = document.getElementById("btnMagic");
 
-    if (!email || !password) {
-      setMsg(signUpMsg, "Email + password required.", "err");
-      return;
-    }
+    btnLogin?.addEventListener("click", async () => {
+      const email = (emailEl?.value || "").trim();
+      const password = (passEl?.value || "").trim();
 
-    btnSignUp.disabled = true;
-    setMsg(signUpMsg, "Creating account…", "");
+      if (!email || !password) {
+        window.Util.toast("Validation", "Email and password are required.");
+        return;
+      }
 
-    const emailRedirectTo = redirectToBase(); // includes repo path on GitHub Pages
+      btnLogin.disabled = true;
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+      btnLogin.disabled = false;
 
-    const { error } = await sb.auth.signUp({
-      email,
-      password,
-      options: { emailRedirectTo }
+      if (error) {
+        console.error(error);
+        window.Util.toast("Login failed", error.message);
+        return;
+      }
+
+      window.location.href = "index.html";
     });
 
-    btnSignUp.disabled = false;
+    btnSignup?.addEventListener("click", async () => {
+      const email = (emailEl?.value || "").trim();
+      const password = (passEl?.value || "").trim();
 
-    if (error) {
-      setMsg(signUpMsg, error.message, "err");
-      return;
-    }
+      if (!email || !password) {
+        window.Util.toast("Validation", "Email and password are required.");
+        return;
+      }
 
-    setMsg(signUpMsg, "Account created. Check email if confirmation is enabled.", "ok");
-  }
+      btnSignup.disabled = true;
+      const { error } = await sb.auth.signUp({ email, password });
+      btnSignup.disabled = false;
 
-  btnSignIn.addEventListener("click", signIn);
-  btnSignUp.addEventListener("click", signUp);
+      if (error) {
+        console.error(error);
+        window.Util.toast("Signup failed", error.message);
+        return;
+      }
+
+      window.Util.toast(
+        "Account created",
+        "If email confirmation is enabled, confirm your email before logging in."
+      );
+    });
+
+    btnMagic?.addEventListener("click", async () => {
+      const email = (emailEl?.value || "").trim();
+      if (!email) {
+        window.Util.toast("Validation", "Email is required.");
+        return;
+      }
+
+      btnMagic.disabled = true;
+
+      // Redirect to index.html after the email link completes authentication.
+      const redirectTo = `${window.location.origin}${window.location.pathname.replace("login.html", "index.html")}`;
+
+      const { error } = await sb.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: redirectTo },
+      });
+
+      btnMagic.disabled = false;
+
+      if (error) {
+        console.error(error);
+        window.Util.toast("Magic link failed", error.message);
+        return;
+      }
+
+      window.Util.toast("Magic link sent", "Please check your email.");
+    });
+  });
 })();
