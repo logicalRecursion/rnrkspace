@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>OldPeopleSpace — Sign Up</title>
+  <title>OldPeopleSpace — Create Account</title>
 
   <link rel="icon" href="logos/oldpeoplespace.png" />
   <link rel="stylesheet" href="css/style.css" />
@@ -21,55 +21,50 @@
   <div class="page">
     <div class="frame">
       <div class="layout-login">
+
         <div class="module">
           <div class="module-hd">
-            <div class="module-title">Create Your Account</div>
-            <div class="module-chip">Required</div>
+            <div class="module-title">Create Your Profile</div>
+            <div class="module-chip">All fields required</div>
           </div>
           <div class="module-bd">
+            <div class="notice slim">
+              <div class="notice-title">This is intentional</div>
+              <div class="notice-text">
+                OldPeopleSpace is built for real people. Please fill everything out.
+              </div>
+            </div>
+
             <div class="form">
-              <label class="label">Username</label>
-              <input id="username" class="input" placeholder="classic_handle" />
+              <label class="label">Username *</label>
+              <input id="username" class="input" required />
 
-              <label class="label">Display Name</label>
-              <input id="displayName" class="input" placeholder="Your Name" />
+              <label class="label">Display Name *</label>
+              <input id="displayName" class="input" required />
 
-              <label class="label">Email</label>
-              <input id="email" class="input" type="email" />
+              <label class="label">Email *</label>
+              <input id="email" class="input" type="email" required />
 
-              <label class="label">Password</label>
-              <input id="password" class="input" type="password" />
+              <label class="label">Password *</label>
+              <input id="password" class="input" type="password" required />
 
               <div class="actions">
                 <button class="btn primary" id="btnCreate" type="button">
                   Create Account
                 </button>
-                <a class="btn" href="login.html">Back to Login</a>
+                <a class="btn" href="login.html">Back</a>
               </div>
 
               <div class="hint">
-                OldPeopleSpace accounts are personal. No burner emails. No rush.
+                By continuing, you’re joining a small, intentional corner of the internet.
               </div>
             </div>
           </div>
         </div>
 
-        <div class="module">
-          <div class="module-hd">
-            <div class="module-title">Why we ask</div>
-          </div>
-          <div class="module-bd">
-            <ul class="rules">
-              <li>Profiles are real people.</li>
-              <li>Usernames are permanent.</li>
-              <li>This isn’t a feed farm.</li>
-            </ul>
-          </div>
-        </div>
       </div>
 
       <div class="footer">
-        <img src="logos/oldpeoplespace.png" alt="" />
         <span>© <span id="yr"></span> OldPeopleSpace</span>
       </div>
     </div>
