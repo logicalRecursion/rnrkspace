@@ -26,10 +26,12 @@
 
       btn.disabled = true;
 
-      // 1️⃣ Create auth user
       const { data, error: authError } = await sb.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/congrats.html`
+        }
       });
 
       if (authError || !data?.user) {
@@ -40,28 +42,26 @@
 
       const user = data.user;
 
-      // 2️⃣ Create profile row
       const { error: profileError } = await sb
         .from("ops_profiles")
         .insert({
           user_id: user.id,
           username,
           display_name: displayName,
-          bio: "",
+          bio: ""
         });
 
       if (profileError) {
+        console.error(profileError);
         btn.disabled = false;
         window.Util.toast(
-          "Profile error",
-          "Your account was created, but your profile could not be saved."
+          "Almost there",
+          "Your account was created, but profile setup needs attention."
         );
-        console.error(profileError);
         return;
       }
 
-      // 3️⃣ Success → onboarding
-      window.location.href = "tour.html";
+      window.location.href = "congrats.html";
     });
   });
 })();
