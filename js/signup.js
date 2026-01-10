@@ -26,26 +26,41 @@
 
       btn.disabled = true;
 
-      const { data, error } = await sb.auth.signUp({
+      // 1️⃣ Create auth user
+      const { data, error: authError } = await sb.auth.signUp({
         email,
         password,
       });
 
-      if (error) {
-        window.Util.toast("Signup failed", error.message);
+      if (authError || !data?.user) {
         btn.disabled = false;
+        window.Util.toast("Signup failed", authError?.message || "Unable to create account.");
         return;
       }
 
       const user = data.user;
 
-      await sb.from("ops_profiles").insert({
-        user_id: user.id,
-        username,
-        display_name: displayName,
-        bio: "",
-      });
+      // 2️⃣ Create profile row
+      const { error: profileError } = await sb
+        .from("ops_profiles")
+        .insert({
+          user_id: user.id,
+          username,
+          display_name: displayName,
+          bio: "",
+        });
 
+      if (profileError) {
+        btn.disabled = false;
+        window.Util.toast(
+          "Profile error",
+          "Your account was created, but your profile could not be saved."
+        );
+        console.error(profileError);
+        return;
+      }
+
+      // 3️⃣ Success → onboarding
       window.location.href = "tour.html";
     });
   });
