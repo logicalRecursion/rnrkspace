@@ -1,77 +1,77 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>OldPeopleSpace — Create Account</title>
+  <meta charset="utf-8">
+  <title>Create Account — OldPeopleSpace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="icon" href="logos/oldpeoplespace.png" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="logos/oldpeoplespace.png">
+  <link rel="stylesheet" href="css/style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <script src="js/config.js" defer></script>
   <script src="js/supabaseClient.js" defer></script>
   <script src="js/util.js" defer></script>
-  <script src="js/app.js" defer></script>
+  <!-- auth-guard intentionally NOT included -->
   <script src="js/signup.js" defer></script>
+  <script src="js/app.js" defer></script>
 </head>
+
 <body>
-  <div id="topbar" class="topbar"></div>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <img src="logos/oldpeoplespace.png" alt="">
+        <div>
+          <div class="brand-title">OldPeopleSpace</div>
+          <div class="brand-tag">A Place for Old Faces</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="page">
     <div class="frame">
-      <div class="layout-login">
+      <div class="module" style="max-width:480px;margin:0 auto;">
+        <div class="module-hd">
+          <div class="module-title">Create Account</div>
+        </div>
+        <div class="module-bd">
+          <form id="signupForm" novalidate>
+            <label class="label">Email *</label>
+            <input id="email" type="email" class="input" required>
 
-        <div class="module">
-          <div class="module-hd">
-            <div class="module-title">Create Your Profile</div>
-            <div class="module-chip">All fields required</div>
-          </div>
-          <div class="module-bd">
-            <div class="notice slim">
-              <div class="notice-title">This is intentional</div>
-              <div class="notice-text">
-                OldPeopleSpace is built for real people. Please fill everything out.
-              </div>
+            <label class="label">Password *</label>
+            <input id="password" type="password" class="input" required>
+
+            <label class="label">Username *</label>
+            <input id="username" type="text" class="input" required>
+
+            <label class="label">Display Name *</label>
+            <input id="displayName" type="text" class="input" required>
+
+            <label class="label">Location</label>
+            <input id="location" type="text" class="input">
+
+            <div class="actions">
+              <button type="submit" class="btn primary">
+                Create Account
+              </button>
             </div>
+          </form>
 
-            <div class="form">
-              <label class="label">Username *</label>
-              <input id="username" class="input" required />
-
-              <label class="label">Display Name *</label>
-              <input id="displayName" class="input" required />
-
-              <label class="label">Email *</label>
-              <input id="email" class="input" type="email" required />
-
-              <label class="label">Password *</label>
-              <input id="password" class="input" type="password" required />
-
-              <div class="actions">
-                <button class="btn primary" id="btnCreate" type="button">
-                  Create Account
-                </button>
-                <a class="btn" href="login.html">Back</a>
-              </div>
-
-              <div class="hint">
-                By continuing, you’re joining a small, intentional corner of the internet.
-              </div>
-            </div>
+          <div class="small muted" style="margin-top:8px;">
+            Already have an account?
+            <a href="login.html">Log in</a>
           </div>
         </div>
-
-      </div>
-
-      <div class="footer">
-        <span>© <span id="yr"></span> OldPeopleSpace</span>
       </div>
     </div>
   </div>
 
   <div class="toast" id="toast">
-    <div class="toast-title t-title">Notice</div>
+    <div class="toast-title t-title"></div>
     <div class="toast-msg t-msg"></div>
   </div>
 </body>
