@@ -6,31 +6,40 @@
   const $ = (id) => document.getElementById(id);
 
   async function loadProfile() {
-    const { data: session } = await sb.auth.getSession();
-    if (!session.session) {
+    Util.renderTopbar("profile");
+
+    const { data } = await sb.auth.getSession();
+    if (!data.session) {
       window.location.href = "login.html";
       return;
     }
 
-    const user = session.session.user;
+    const user = data.session.user;
 
-    Util.renderTopbar("profile");
+    $("email").textContent = user.email;
+    $("displayName").textContent = "Loading profile…";
+    $("bio").textContent = "";
 
-    const { data, error } = await sb
+    const { data: profile } = await sb
       .from("profiles")
       .select("*")
       .eq("id", user.id)
       .single();
 
-    if (error || !data) {
-      Util.toast("Error", "Profile not found");
+    if (!profile) {
+      $("displayName").textContent = "Profile not set up yet";
+      $("bio").textContent = "You’ll be able to edit this soon.";
       return;
     }
 
-    $("avatar").src = data.avatar_url || "logos/oldpeoplespace.png";
-    $("displayName").textContent = data.display_name || "(no display name)";
-    $("email").textContent = user.email;
-    $("bio").textContent = data.bio || "No bio yet.";
+    $("displayName").textContent =
+      profile.display_name || "No display name yet";
+    $("bio").textContent = profile.bio || "No bio yet.";
+
+    const avatar = $("avatar");
+    if (avatar) {
+      avatar.src = profile.avatar_url || "logos/oldpeoplespace.png";
+    }
   }
 
   document.addEventListener("DOMContentLoaded", loadProfile);

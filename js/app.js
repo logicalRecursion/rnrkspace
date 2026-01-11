@@ -3,6 +3,8 @@
   "use strict";
 
   document.addEventListener("DOMContentLoaded", () => {
-    Util.setYear();
+    if (window.Util?.setYear) {
+      Util.setYear();
+    }
   });
 })();
