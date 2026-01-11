@@ -6,6 +6,7 @@
   const $ = (id) => document.getElementById(id);
 
   async function loadProfile() {
+    // ALWAYS render topbar on this page
     Util.renderTopbar("profile");
 
     const { data } = await sb.auth.getSession();
