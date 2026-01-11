@@ -11,6 +11,7 @@
   <script src="js/util.js" defer></script>
   <script src="js/auth-guard.js" defer></script>
   <script src="js/profile.js" defer></script>
+  <script src="js/app.js" defer></script>
 </head>
 
 <body>
@@ -23,11 +24,12 @@
         <div class="col left">
           <div class="module">
             <div class="module-hd">
-              <div class="module-title">Friends</div>
-              <div class="module-chip">Top 4</div>
+              <div class="module-title">My Card</div>
             </div>
             <div class="module-bd">
-              <div id="friendsGrid" class="friends-grid"></div>
+              <img id="avatar" class="avatar-square" src="logos/oldpeoplespace.png">
+              <div id="displayName" class="cardline"></div>
+              <div id="email" class="muted small"></div>
             </div>
           </div>
         </div>
@@ -35,14 +37,19 @@
         <div class="col main">
           <div class="module">
             <div class="module-hd">
-              <div class="module-title">Welcome Back</div>
+              <div class="module-title">About Me</div>
             </div>
             <div class="module-bd">
-              Your Top 4 updates automatically when you add friends.
+              <div id="bio" class="cardline muted"></div>
             </div>
           </div>
         </div>
 
+      </div>
+
+      <div class="footer">
+        <img src="logos/oldpeoplespace.png" alt="">
+        <span>© <span id="yr"></span> OldPeopleSpace</span>
       </div>
     </div>
   </div>
