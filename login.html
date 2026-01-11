@@ -1,172 +1,69 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>OldPeopleSpace — Login</title>
+  <meta charset="utf-8">
+  <title>Log In — OldPeopleSpace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="icon" href="logos/oldpeoplespace.png" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="logos/oldpeoplespace.png">
+  <link rel="stylesheet" href="css/style.css">
 
-  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <!-- App Core -->
   <script src="js/config.js" defer></script>
   <script src="js/supabaseClient.js" defer></script>
   <script src="js/util.js" defer></script>
-  <script src="js/app.js" defer></script>
+  <!-- auth-guard intentionally NOT included -->
   <script src="js/login.js" defer></script>
+  <script src="js/app.js" defer></script>
 </head>
-<body>
 
-  <!-- Static topbar for unauthenticated users -->
+<body>
   <div class="topbar">
     <div class="topbar-inner">
-      <a class="brand" href="login.html" aria-label="OldPeopleSpace">
-        <img src="logos/oldpeoplespace.png" alt="OldPeopleSpace logo" />
-        <div class="brand-text">
+      <div class="brand">
+        <img src="logos/oldpeoplespace.png" alt="">
+        <div>
           <div class="brand-title">OldPeopleSpace</div>
           <div class="brand-tag">A Place for Old Faces</div>
         </div>
-      </a>
-
-      <div class="topnav">
-        <a class="toplink active" href="login.html">Login</a>
-        <a class="toplink" href="signup.html">Sign Up</a>
-      </div>
-    </div>
-
-    <div class="topbar-sub">
-      <div class="topbar-sub-inner">
-        <span class="submsg">
-          No noise. No pressure. Just familiar faces.
-        </span>
       </div>
     </div>
   </div>
 
   <div class="page">
     <div class="frame">
-      <div class="layout-login">
-
-        <!-- LOGIN PANEL -->
-        <div class="module">
-          <div class="module-hd">
-            <div class="module-title">Sign In</div>
-            <div class="module-chip">Members</div>
-          </div>
-
-          <div class="module-bd">
-            <div class="notice slim">
-              <div class="notice-title">Welcome back.</div>
-              <div class="notice-text">
-                Log in to post updates, manage your profile, and keep things classic.
-              </div>
-            </div>
-
-            <div class="form">
-              <label class="label" for="email">Email</label>
-              <input
-                id="email"
-                class="input"
-                type="email"
-                placeholder="you@domain.com"
-                autocomplete="email"
-              />
-
-              <label class="label" for="password">Password</label>
-              <input
-                id="password"
-                class="input"
-                type="password"
-                placeholder="••••••••"
-                autocomplete="current-password"
-              />
-
-              <div class="actions">
-                <button class="btn primary" id="btnLogin" type="button">
-                  Log in
-                </button>
-                <a class="btn" href="signup.html">
-                  Create account
-                </a>
-              </div>
-
-              <div class="divider"></div>
-
-              <!-- OPTIONAL MAGIC LINK -->
-              <div class="mini">
-                <div class="mini-title">Forgot your password?</div>
-                <div class="mini-text">
-                  You can send yourself a one-time magic link instead.
-                </div>
-              </div>
-
-              <div class="actions">
-                <button class="btn" id="btnMagic" type="button">
-                  Send magic link
-                </button>
-              </div>
-            </div>
-          </div>
+      <div class="module" style="max-width:420px;margin:0 auto;">
+        <div class="module-hd">
+          <div class="module-title">Log In</div>
         </div>
+        <div class="module-bd">
+          <form id="loginForm">
+            <label class="label" for="email">Email</label>
+            <input id="email" type="email" class="input" required>
 
-        <!-- INFO / TOUR PANEL -->
-        <div class="module">
-          <div class="module-hd">
-            <div class="module-title">What’s Inside</div>
-            <div class="module-chip">Quick tour</div>
-          </div>
-          <div class="module-bd">
-            <div class="tour">
-              <div class="tour-item">
-                <div class="tour-bullet">•</div>
-                <div class="tour-text">
-                  <b>Updates</b> — small moments, shared simply.
-                </div>
-              </div>
-              <div class="tour-item">
-                <div class="tour-bullet">•</div>
-                <div class="tour-text">
-                  <b>Profiles</b> — bios, Top 8s, and personality.
-                </div>
-              </div>
-              <div class="tour-item">
-                <div class="tour-bullet">•</div>
-                <div class="tour-text">
-                  <b>No algorithms</b> — just people you recognize.
-                </div>
-              </div>
-            </div>
+            <label class="label" for="password">Password</label>
+            <input id="password" type="password" class="input" required>
 
             <div class="actions">
-              <a class="btn" href="tour.html">Take the full tour</a>
+              <button type="submit" class="btn primary">
+                Log In
+              </button>
             </div>
+          </form>
 
-            <div class="hint">
-              OldPeopleSpace is built to feel like the good internet —
-              personal, calm, and a little playful.
-            </div>
+          <div class="small muted" style="margin-top:8px;">
+            New here?
+            <a href="signup.html">Create an account</a>
           </div>
         </div>
-
-      </div>
-
-      <div class="footer">
-        <img src="logos/oldpeoplespace.png" alt="" />
-        <span>
-          © <span id="yr"></span> OldPeopleSpace — A Place for Old Faces
-        </span>
       </div>
     </div>
   </div>
 
-  <!-- Toast -->
   <div class="toast" id="toast">
-    <div class="toast-title t-title">Notice</div>
+    <div class="toast-title t-title"></div>
     <div class="toast-msg t-msg"></div>
   </div>
-
 </body>
 </html>
