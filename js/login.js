@@ -2,30 +2,41 @@
 (function () {
   "use strict";
 
-  const sb = SupabaseClient.getClient();
-  const form = document.getElementById("loginForm");
-  const emailInput = document.getElementById("email");
+  document.addEventListener("DOMContentLoaded", () => {
+    const sb = SupabaseClient.getClient();
 
-  if (!form) return;
+    const form = document.getElementById("loginForm");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const email = emailInput.value.trim();
-    if (!email) return;
-
-    const { error } = await sb.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: window.location.origin + "/index.html"
-      }
-    });
-
-    if (error) {
-      Util.toast("Login failed", error.message);
+    if (!form || !emailInput || !passwordInput) {
+      console.warn("Login form not found");
       return;
     }
 
-    Util.toast("Check your email", "We sent you a login link.");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      if (!email || !password) {
+        Util.toast("Missing info", "Please enter email and password.");
+        return;
+      }
+
+      const { error } = await sb.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        Util.toast("Login failed", error.message);
+        return;
+      }
+
+      // Success → go home
+      window.location.href = "index.html";
+    });
   });
 })();
