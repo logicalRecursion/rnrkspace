@@ -1,62 +1,35 @@
-<!-- /profile.html -->
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>OldPeopleSpace — Profile</title>
-
-  <link rel="icon" href="logos/oldpeoplespace.png" />
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="utf-8">
+  <title>Profile — OldPeopleSpace</title>
+  <link rel="stylesheet" href="css/style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <script src="js/config.js" defer></script>
   <script src="js/supabaseClient.js" defer></script>
   <script src="js/util.js" defer></script>
   <script src="js/auth-guard.js" defer></script>
-  <script src="js/feed.js" defer></script>
-  <script src="js/app.js" defer></script>
   <script src="js/profile.js" defer></script>
 </head>
+
 <body data-profile-mode="public">
-  <div id="topbar" class="topbar"></div>
+  <div id="topbar"></div>
 
   <div class="page">
     <div class="frame">
       <div class="layout-2005">
+
         <!-- LEFT -->
         <div class="col left">
           <div class="module">
             <div class="module-hd">
               <div class="module-title">Profile</div>
-              <div class="module-chip" id="profileName">Loading…</div>
             </div>
             <div class="module-bd">
-              <div class="profile-badge">
-                <img class="profile-badge-logo" src="logos/oldpeoplespace.png" alt="" />
-                <div class="profile-badge-text">
-                  <div class="profile-badge-title">OldPeopleSpace</div>
-                  <div class="profile-badge-sub">A Place for Old Faces</div>
-                </div>
-              </div>
-
+              <img id="profileAvatar" class="avatar-square" src="logos/oldpeoplespace.png">
               <div class="divider"></div>
-
-              <div class="cardline" id="profileSummary">Loading profile…</div>
-              <div class="hint">
-                Share this link with a friend. Profiles are meant to be shared.
-              </div>
-            </div>
-          </div>
-
-          <div class="module">
-            <div class="module-hd">
-              <div class="module-title">Top 8</div>
-              <div class="module-chip">Classic</div>
-            </div>
-            <div class="module-bd">
-              <div class="top8" id="top8"></div>
+              <button id="btnAddFriend" class="btn primary">Add Friend</button>
             </div>
           </div>
         </div>
@@ -65,34 +38,11 @@
         <div class="col main">
           <div class="module">
             <div class="module-hd">
-              <div class="module-title">Profile Details</div>
-              <div class="module-chip">Classic</div>
+              <div class="module-title">About</div>
             </div>
             <div class="module-bd">
-              <div class="profile-header">
-                <div class="avatar-stack">
-                  <img id="profileAvatar" class="avatar-square" src="logos/oldpeoplespace.png" alt="Profile picture" />
-                  <div class="muted small">Profile picture (square)</div>
-                </div>
-                <div class="profile-actions">
-                  <a class="btn" href="index.html">Home</a>
-                </div>
-              </div>
-
-              <div class="divider"></div>
-
-              <label class="label" for="displayName">Display name</label>
-              <input id="displayName" class="input" disabled />
-
-              <label class="label" for="bio">Bio</label>
-              <textarea id="bio" class="textarea" disabled></textarea>
-
-              <div class="notice slim">
-                <div class="notice-title">OldPeopleSpace vibe</div>
-                <div class="notice-text">
-                  No algorithms. No noise. Just a page that feels like a person.
-                </div>
-              </div>
+              <div id="displayName" class="cardline"></div>
+              <div id="bio" class="cardline"></div>
             </div>
           </div>
         </div>
@@ -102,43 +52,19 @@
           <div class="module">
             <div class="module-hd">
               <div class="module-title">Friends</div>
-              <div class="module-chip">Top 4</div>
             </div>
             <div class="module-bd">
-              <div class="friends-grid" id="friendsGrid"></div>
-              <div class="hint">
-                The Top 4 is a classic tradition. Respect it.
-              </div>
-            </div>
-          </div>
-
-          <div class="module">
-            <div class="module-hd">
-              <div class="module-title">House Rules</div>
-            </div>
-            <div class="module-bd">
-              <ul class="rules">
-                <li>Be kind.</li>
-                <li>Keep it human.</li>
-                <li>No weird energy.</li>
-              </ul>
-              <div class="hint">
-                OldPeopleSpace is for familiar faces, not performative ones.
-              </div>
+              <div id="friendsGrid" class="friends-grid"></div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="footer">
-        <img src="logos/oldpeoplespace.png" alt="" />
-        <span>© <span id="yr"></span> OldPeopleSpace — A Place for Old Faces</span>
       </div>
     </div>
   </div>
 
-  <div class="toast" id="toast">
-    <div class="toast-title t-title">Notice</div>
+  <div id="toast" class="toast">
+    <div class="toast-title t-title"></div>
     <div class="toast-msg t-msg"></div>
   </div>
 </body>

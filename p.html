@@ -1,161 +1,54 @@
-<!-- /p.html -->
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>OldPeopleSpace — My Profile</title>
-
-  <link rel="icon" href="logos/oldpeoplespace.png" />
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="utf-8">
+  <title>My Profile — OldPeopleSpace</title>
+  <link rel="stylesheet" href="css/style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <script src="js/config.js" defer></script>
   <script src="js/supabaseClient.js" defer></script>
   <script src="js/util.js" defer></script>
   <script src="js/auth-guard.js" defer></script>
-  <script src="js/feed.js" defer></script>
-  <script src="js/app.js" defer></script>
   <script src="js/profile.js" defer></script>
 </head>
-<body data-profile-mode="me">
-  <div id="topbar" class="topbar"></div>
+
+<body>
+  <div id="topbar"></div>
 
   <div class="page">
     <div class="frame">
       <div class="layout-2005">
-        <!-- LEFT -->
+
         <div class="col left">
-          <div class="module">
-            <div class="module-hd">
-              <div class="module-title">My Profile</div>
-              <div class="module-chip" id="profileName">Loading…</div>
-            </div>
-            <div class="module-bd">
-              <div class="profile-badge">
-                <img class="profile-badge-logo" src="logos/oldpeoplespace.png" alt="" />
-                <div class="profile-badge-text">
-                  <div class="profile-badge-title">OldPeopleSpace</div>
-                  <div class="profile-badge-sub">A Place for Old Faces</div>
-                </div>
-              </div>
-
-              <div class="divider"></div>
-
-              <div class="cardline" id="profileSummary">Checking session…</div>
-
-              <div class="hint">
-                Your profile is view-only by default. Click <b>Edit Profile</b> when you’re ready.
-              </div>
-            </div>
-          </div>
-
-          <div class="module">
-            <div class="module-hd">
-              <div class="module-title">Top 8</div>
-              <div class="module-chip">Classic</div>
-            </div>
-            <div class="module-bd">
-              <div class="top8" id="top8"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- MAIN -->
-        <div class="col main">
-          <div class="module">
-            <div class="module-hd">
-              <div class="module-title">Profile Details</div>
-              <div class="module-chip">Classic</div>
-            </div>
-            <div class="module-bd">
-
-              <div class="profile-header">
-                <div class="avatar-stack">
-                  <img id="profileAvatar" class="avatar-square" src="logos/oldpeoplespace.png" alt="Profile picture" />
-                  <div class="muted small">Profile picture (square)</div>
-                </div>
-
-                <div class="profile-actions">
-                  <button class="btn" id="btnEditProfile" type="button">Edit Profile</button>
-                  <button class="btn primary" id="btnSaveProfile" type="button" style="display:none;">Save</button>
-                  <button class="btn" id="btnCancelProfile" type="button" style="display:none;">Cancel</button>
-                  <a class="btn" href="index.html">Home</a>
-                </div>
-              </div>
-
-              <div class="divider"></div>
-
-              <div id="avatarEditRow" style="display:none;">
-                <div class="notice slim">
-                  <div class="notice-title">Change your picture</div>
-                  <div class="notice-text">Square photos look best. Keep it classic.</div>
-                </div>
-
-                <div class="actions">
-                  <input id="avatarFile" class="input" type="file" accept="image/*" />
-                  <button class="btn primary" id="btnUploadAvatar" type="button">Upload Photo</button>
-                </div>
-
-                <div class="divider"></div>
-              </div>
-
-              <label class="label" for="displayName">Display name</label>
-              <input id="displayName" class="input" placeholder="Display name" disabled />
-
-              <label class="label" for="bio">Bio</label>
-              <textarea id="bio" class="textarea" placeholder="Write a short bio…" disabled></textarea>
-
-              <div class="hint">
-                Keep it simple. A little bio goes a long way.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- RIGHT -->
-        <div class="col right">
           <div class="module">
             <div class="module-hd">
               <div class="module-title">Friends</div>
               <div class="module-chip">Top 4</div>
             </div>
             <div class="module-bd">
-              <div class="friends-grid" id="friendsGrid"></div>
-              <div class="hint">
-                Your Top 4 shows up on your profile. It’s a classic tradition.
-              </div>
-            </div>
-          </div>
-
-          <div class="module">
-            <div class="module-hd">
-              <div class="module-title">Profile Tips</div>
-            </div>
-            <div class="module-bd">
-              <ul class="rules">
-                <li>Make your bio short and sweet.</li>
-                <li>Pick a Top 8 that makes you smile.</li>
-                <li>Post a quick update once in a while.</li>
-              </ul>
-              <div class="hint">
-                OldPeopleSpace isn’t about perfection—just presence.
-              </div>
+              <div id="friendsGrid" class="friends-grid"></div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="footer">
-        <img src="logos/oldpeoplespace.png" alt="" />
-        <span>© <span id="yr"></span> OldPeopleSpace — A Place for Old Faces</span>
+        <div class="col main">
+          <div class="module">
+            <div class="module-hd">
+              <div class="module-title">Welcome Back</div>
+            </div>
+            <div class="module-bd">
+              Your Top 4 updates automatically when you add friends.
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
-  <div class="toast" id="toast">
-    <div class="toast-title t-title">Notice</div>
+  <div id="toast" class="toast">
+    <div class="toast-title t-title"></div>
     <div class="toast-msg t-msg"></div>
   </div>
 </body>

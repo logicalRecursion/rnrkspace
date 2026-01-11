@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Find Friends — OldPeopleSpace</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js" defer></script>
+  <script src="js/supabaseClient.js" defer></script>
+  <script src="js/util.js" defer></script>
+  <script src="js/auth-guard.js" defer></script>
+  <script src="js/friends.js" defer></script>
+</head>
+<body>
+  <div id="topbar"></div>
+
+  <div class="page">
+    <div class="frame">
+      <div class="module">
+        <div class="module-hd">
+          <div class="module-title">Find Friends</div>
+        </div>
+        <div class="module-bd">
+          <div id="friendsGrid" class="friends-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <div class="toast-title t-title"></div>
+    <div class="toast-msg t-msg"></div>
+  </div>
+</body>
+</html>
