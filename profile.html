@@ -25,6 +25,7 @@
   <div class="page">
     <div class="frame">
       <div class="layout-2005">
+        <!-- LEFT -->
         <div class="col left">
           <div class="module">
             <div class="module-hd">
@@ -44,7 +45,7 @@
 
               <div class="cardline" id="profileSummary">Loading profile…</div>
               <div class="hint">
-                Share this page with a friend using <span class="mono">?u=username</span> (if enabled).
+                Share this link with a friend. Profiles are meant to be shared.
               </div>
             </div>
           </div>
@@ -60,58 +61,70 @@
           </div>
         </div>
 
+        <!-- MAIN -->
         <div class="col main">
           <div class="module">
             <div class="module-hd">
-              <div class="module-title">About</div>
-              <div class="module-chip">View</div>
+              <div class="module-title">Profile Details</div>
+              <div class="module-chip">Classic</div>
             </div>
             <div class="module-bd">
-              <label class="label" for="displayName">Display name</label>
-              <input id="displayName" class="input" placeholder="Display name" disabled />
-
-              <label class="label" for="bio">Bio</label>
-              <textarea id="bio" class="textarea" placeholder="Bio" disabled></textarea>
-
-              <div class="notice slim">
-                <div class="notice-title">Heads up</div>
-                <div class="notice-text">Public view is read-only. For edits, use My Profile.</div>
+              <div class="profile-header">
+                <div class="avatar-stack">
+                  <img id="profileAvatar" class="avatar-square" src="logos/oldpeoplespace.png" alt="Profile picture" />
+                  <div class="muted small">Profile picture (square)</div>
+                </div>
+                <div class="profile-actions">
+                  <a class="btn" href="index.html">Home</a>
+                </div>
               </div>
 
-              <div class="actions">
-                <a class="btn primary" href="p.html">My Profile</a>
-                <a class="btn" href="index.html">Home</a>
+              <div class="divider"></div>
+
+              <label class="label" for="displayName">Display name</label>
+              <input id="displayName" class="input" disabled />
+
+              <label class="label" for="bio">Bio</label>
+              <textarea id="bio" class="textarea" disabled></textarea>
+
+              <div class="notice slim">
+                <div class="notice-title">OldPeopleSpace vibe</div>
+                <div class="notice-text">
+                  No algorithms. No noise. Just a page that feels like a person.
+                </div>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- RIGHT -->
         <div class="col right">
           <div class="module">
             <div class="module-hd">
-              <div class="module-title">Good Vibes</div>
+              <div class="module-title">Friends</div>
+              <div class="module-chip">Top 4</div>
             </div>
             <div class="module-bd">
-              <ul class="rules">
-                <li>Be kind.</li>
-                <li>Keep it human.</li>
-                <li>Stay classy.</li>
-              </ul>
+              <div class="friends-grid" id="friendsGrid"></div>
               <div class="hint">
-                OldPeopleSpace is a cozy corner of the internet.
+                The Top 4 is a classic tradition. Respect it.
               </div>
             </div>
           </div>
 
           <div class="module">
             <div class="module-hd">
-              <div class="module-title">Shortcuts</div>
+              <div class="module-title">House Rules</div>
             </div>
             <div class="module-bd">
-              <ul class="linklist">
-                <li><a href="login.html">Login</a></li>
-                <li><a href="settings.html">Settings</a></li>
+              <ul class="rules">
+                <li>Be kind.</li>
+                <li>Keep it human.</li>
+                <li>No weird energy.</li>
               </ul>
+              <div class="hint">
+                OldPeopleSpace is for familiar faces, not performative ones.
+              </div>
             </div>
           </div>
         </div>

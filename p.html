@@ -25,6 +25,7 @@
   <div class="page">
     <div class="frame">
       <div class="layout-2005">
+        <!-- LEFT -->
         <div class="col left">
           <div class="module">
             <div class="module-hd">
@@ -42,9 +43,10 @@
 
               <div class="divider"></div>
 
-              <div class="cardline" id="profileSummary">Loading your information…</div>
+              <div class="cardline" id="profileSummary">Checking session…</div>
+
               <div class="hint">
-                Keep it classic. A little bio goes a long way.
+                Your profile is view-only by default. Click <b>Edit Profile</b> when you’re ready.
               </div>
             </div>
           </div>
@@ -60,38 +62,73 @@
           </div>
         </div>
 
+        <!-- MAIN -->
         <div class="col main">
           <div class="module">
             <div class="module-hd">
-              <div class="module-title">About Me</div>
-              <div class="module-chip">Editable</div>
+              <div class="module-title">Profile Details</div>
+              <div class="module-chip">Classic</div>
             </div>
             <div class="module-bd">
+
+              <div class="profile-header">
+                <div class="avatar-stack">
+                  <img id="profileAvatar" class="avatar-square" src="logos/oldpeoplespace.png" alt="Profile picture" />
+                  <div class="muted small">Profile picture (square)</div>
+                </div>
+
+                <div class="profile-actions">
+                  <button class="btn" id="btnEditProfile" type="button">Edit Profile</button>
+                  <button class="btn primary" id="btnSaveProfile" type="button" style="display:none;">Save</button>
+                  <button class="btn" id="btnCancelProfile" type="button" style="display:none;">Cancel</button>
+                  <a class="btn" href="index.html">Home</a>
+                </div>
+              </div>
+
+              <div class="divider"></div>
+
+              <div id="avatarEditRow" style="display:none;">
+                <div class="notice slim">
+                  <div class="notice-title">Change your picture</div>
+                  <div class="notice-text">Square photos look best. Keep it classic.</div>
+                </div>
+
+                <div class="actions">
+                  <input id="avatarFile" class="input" type="file" accept="image/*" />
+                  <button class="btn primary" id="btnUploadAvatar" type="button">Upload Photo</button>
+                </div>
+
+                <div class="divider"></div>
+              </div>
+
               <label class="label" for="displayName">Display name</label>
-              <input id="displayName" class="input" placeholder="Display name" />
+              <input id="displayName" class="input" placeholder="Display name" disabled />
 
               <label class="label" for="bio">Bio</label>
-              <textarea id="bio" class="textarea" placeholder="Write a short bio…"></textarea>
+              <textarea id="bio" class="textarea" placeholder="Write a short bio…" disabled></textarea>
 
-              <div class="actions">
-                <button class="btn primary" id="btnSaveProfile" type="button">Save</button>
-                <a class="btn" href="index.html">Home</a>
+              <div class="hint">
+                Keep it simple. A little bio goes a long way.
               </div>
-            </div>
-          </div>
-
-          <div class="module">
-            <div class="module-hd">
-              <div class="module-title">My Recent Posts</div>
-              <div class="module-chip">Last 10</div>
-            </div>
-            <div class="module-bd">
-              <div id="myPosts" class="feed"></div>
             </div>
           </div>
         </div>
 
+        <!-- RIGHT -->
         <div class="col right">
+          <div class="module">
+            <div class="module-hd">
+              <div class="module-title">Friends</div>
+              <div class="module-chip">Top 4</div>
+            </div>
+            <div class="module-bd">
+              <div class="friends-grid" id="friendsGrid"></div>
+              <div class="hint">
+                Your Top 4 shows up on your profile. It’s a classic tradition.
+              </div>
+            </div>
+          </div>
+
           <div class="module">
             <div class="module-hd">
               <div class="module-title">Profile Tips</div>
@@ -105,18 +142,6 @@
               <div class="hint">
                 OldPeopleSpace isn’t about perfection—just presence.
               </div>
-            </div>
-          </div>
-
-          <div class="module">
-            <div class="module-hd">
-              <div class="module-title">Shortcuts</div>
-            </div>
-            <div class="module-bd">
-              <ul class="linklist">
-                <li><a href="settings.html">Customize Profile</a></li>
-                <li><a href="profile.html">Public Profile View</a></li>
-              </ul>
             </div>
           </div>
         </div>
