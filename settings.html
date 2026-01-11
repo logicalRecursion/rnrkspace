@@ -1,13 +1,11 @@
-<!-- /settings.html -->
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>OldPeopleSpace — Settings</title>
+  <meta charset="utf-8">
+  <title>Settings — OldPeopleSpace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="icon" href="logos/oldpeoplespace.png" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -15,113 +13,29 @@
   <script src="js/supabaseClient.js" defer></script>
   <script src="js/util.js" defer></script>
   <script src="js/auth-guard.js" defer></script>
+  <script src="js/settings.js" defer></cript>
   <script src="js/app.js" defer></script>
-  <script src="js/settings.js" defer></script>
 </head>
+
 <body>
   <div id="topbar" class="topbar"></div>
 
   <div class="page">
     <div class="frame">
-      <div class="layout-2005">
-        <div class="col left">
-          <div class="module">
-            <div class="module-hd">
-              <div class="module-title">Account</div>
-              <div class="module-chip" id="acctBadge">Loading…</div>
-            </div>
-            <div class="module-bd">
-              <div class="cardline" id="acctInfo">Checking session…</div>
-              <div class="actions compact">
-                <button class="btn danger" id="btnSignOut2" type="button">Sign out</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="module">
-            <div class="module-hd">
-              <div class="module-title">Shortcuts</div>
-            </div>
-            <div class="module-bd">
-              <ul class="linklist">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="p.html">My Profile</a></li>
-                <li><a href="profile.html">Public Profile</a></li>
-              </ul>
-            </div>
-          </div>
+      <div class="module">
+        <div class="module-hd">
+          <div class="module-title">Account Settings</div>
         </div>
-
-        <div class="col main">
-          <div class="module">
-            <div class="module-hd">
-              <div class="module-title">Customize</div>
-              <div class="module-chip">My Profile</div>
-            </div>
-            <div class="module-bd">
-              <div class="notice slim">
-                <div class="notice-title">Make it yours</div>
-                <div class="notice-text">Add a little custom CSS to change how your profile page looks.</div>
-              </div>
-
-              <label class="label" for="customCss">Custom CSS</label>
-              <textarea id="customCss" class="textarea mono" placeholder="/* Example:
-#profileLeft .module-hd { background: #0f5f2a; }
-*/"></textarea>
-
-              <div class="actions">
-                <button class="btn primary" id="btnSaveCss" type="button">Save</button>
-                <button class="btn" id="btnResetCss" type="button">Reset</button>
-              </div>
-
-              <div class="hint">
-                Keep it readable. The best profiles are the ones you actually want to revisit.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col right">
-          <div class="module">
-            <div class="module-hd">
-              <div class="module-title">Ideas</div>
-            </div>
-            <div class="module-bd">
-              <ul class="rules">
-                <li>Make headers darker.</li>
-                <li>Add a border around your bio.</li>
-                <li>Keep the text easy on the eyes.</li>
-              </ul>
-              <div class="hint">
-                OldPeopleSpace: classic layout, clean choices.
-              </div>
-            </div>
-          </div>
-
-          <div class="module">
-            <div class="module-hd">
-              <div class="module-title">Tagline</div>
-            </div>
-            <div class="module-bd">
-              <div class="notice slim">
-                <div class="notice-title">A Place for Old Faces</div>
-                <div class="notice-text">It’s not a trend. It’s a vibe.</div>
-              </div>
-            </div>
-          </div>
+        <div class="module-bd">
+          <p class="muted">Account management coming next.</p>
         </div>
       </div>
 
       <div class="footer">
-        <img src="logos/oldpeoplespace.png" alt="" />
-        <span>© <span id="yr"></span> OldPeopleSpace — A Place for Old Faces</span>
+        <img src="logos/oldpeoplespace.png" alt="">
+        <span>© <span id="yr"></span> OldPeopleSpace</span>
       </div>
     </div>
-  </div>
-
-  <div class="toast" id="toast">
-    <div class="toast-title t-title">Notice</div>
-    <div class="toast-msg t-msg"></div>
   </div>
 </body>
 </html>
