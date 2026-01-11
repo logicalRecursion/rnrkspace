@@ -2,13 +2,11 @@
 (function () {
   "use strict";
 
-  function $(id) {
-    return document.getElementById(id);
-  }
+  const $ = (id) => document.getElementById(id);
 
   function setYear() {
-    const el = $("yr");
-    if (el) el.textContent = new Date().getFullYear();
+    const y = $("yr");
+    if (y) y.textContent = new Date().getFullYear();
   }
 
   function toast(title, msg) {
@@ -17,35 +15,41 @@
 
     t.querySelector(".t-title").textContent = title;
     t.querySelector(".t-msg").textContent = msg;
-
     t.classList.add("show");
-    setTimeout(() => t.classList.remove("show"), 4200);
+
+    setTimeout(() => t.classList.remove("show"), 4000);
   }
 
-  function renderTopbar(active) {
-    const host = $("topbar");
-    if (!host) return;
+  async function logout() {
+    const sb = SupabaseClient.getClient();
+    await sb.auth.signOut();
+    window.location.href = "login.html";
+  }
 
-    host.innerHTML = `
-      <div class="topbar">
-        <div class="topbar-inner">
-          <a class="brand" href="index.html">
-            <img src="logos/oldpeoplespace.png" alt="">
-            <div class="brand-text">
-              <div class="brand-title">OldPeopleSpace</div>
-              <div class="brand-tag">A Place for Old Faces</div>
-            </div>
-          </a>
+  function renderTopbar(active = "") {
+    const el = $("topbar");
+    if (!el) return;
 
-          <nav class="topnav">
-            <a class="toplink ${active === 'home' ? 'active' : ''}" href="index.html">Home</a>
-            <a class="toplink ${active === 'profile' ? 'active' : ''}" href="p.html">My Profile</a>
-            <a class="toplink ${active === 'friends' ? 'active' : ''}" href="friends.html">Find Friends</a>
-            <a class="toplink ${active === 'settings' ? 'active' : ''}" href="settings.html">Settings</a>
-          </nav>
+    el.innerHTML = `
+      <div class="topbar-inner">
+        <div class="brand">
+          <img src="logos/oldpeoplespace.png" alt="">
+          <div class="brand-text">
+            <div class="brand-title">OldPeopleSpace</div>
+            <div class="brand-tag">A Place for Old Faces</div>
+          </div>
         </div>
+
+        <nav class="topnav">
+          <a class="toplink ${active==="home"?"active":""}" href="index.html">Home</a>
+          <a class="toplink ${active==="profile"?"active":""}" href="p.html">My Profile</a>
+          <a class="toplink ${active==="settings"?"active":""}" href="settings.html">Settings</a>
+          <button class="toplink" id="btnLogout">Log Out</button>
+        </nav>
       </div>
     `;
+
+    $("btnLogout").onclick = logout;
   }
 
   window.Util = { setYear, toast, renderTopbar };
