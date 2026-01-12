@@ -5,6 +5,7 @@
   <title>My Profile — OldPeopleSpace</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <link rel="icon" href="logos/oldpeoplespace.png">
   <link rel="stylesheet" href="css/style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -24,26 +25,56 @@
     <div class="frame">
       <div class="layout-2005">
 
+        <!-- LEFT COLUMN -->
         <div class="col left">
           <div class="module">
             <div class="module-hd">
               <div class="module-title">My Card</div>
             </div>
             <div class="module-bd">
-              <img id="avatar" class="avatar-square" src="logos/oldpeoplespace.png">
-              <div id="displayName" class="cardline"></div>
-              <div id="email" class="small muted"></div>
+
+              <!-- VIEW MODE -->
+              <div id="profileView">
+                <img id="avatarView" class="avatar-square" src="logos/oldpeoplespace.png">
+                <div id="displayNameView" class="cardline"></div>
+                <div id="locationView" class="small muted"></div>
+                <div class="actions compact">
+                  <button id="editBtn" class="btn primary">Edit Profile</button>
+                </div>
+              </div>
+
+              <!-- EDIT MODE -->
+              <div id="profileEdit" class="hidden">
+                <label class="label">Profile Picture</label>
+                <input id="avatarInput" type="file" accept="image/*" class="input">
+
+                <label class="label">Display Name</label>
+                <input id="displayNameInput" class="input">
+
+                <label class="label">Location</label>
+                <input id="locationInput" class="input">
+
+                <label class="label">Bio</label>
+                <textarea id="bioInput" class="textarea"></textarea>
+
+                <div class="actions compact">
+                  <button id="saveBtn" class="btn primary">Save</button>
+                  <button id="cancelBtn" class="btn">Cancel</button>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
 
+        <!-- MAIN COLUMN -->
         <div class="col main">
           <div class="module">
             <div class="module-hd">
               <div class="module-title">About Me</div>
             </div>
             <div class="module-bd">
-              <div id="bio" class="cardline muted"></div>
+              <div id="bioView" class="cardline muted"></div>
             </div>
           </div>
         </div>
