@@ -3,32 +3,25 @@
   "use strict";
 
   document.addEventListener("DOMContentLoaded", () => {
-    console.log("Signup JS loaded");
-
     const sb = SupabaseClient.getClient();
     const form = document.getElementById("signupForm");
-
-    if (!form) {
-      console.error("signupForm not found");
-      return;
-    }
+    if (!form) return;
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      console.log("Signup submit triggered");
 
-      const email = document.getElementById("email")?.value.trim();
-      const password = document.getElementById("password")?.value;
-      const username = document.getElementById("username")?.value.trim();
-      const displayName = document.getElementById("displayName")?.value.trim();
-      const location = document.getElementById("location")?.value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const username = document.getElementById("username").value.trim();
+      const displayName = document.getElementById("displayName").value.trim();
+      const location = document.getElementById("location").value.trim();
 
       if (!email || !password || !username || !displayName) {
-        Util.toast("Missing info", "Please fill in all required fields.");
+        Util.toast("Missing info", "All required fields must be filled.");
         return;
       }
 
-      const { data, error } = await sb.auth.signUp({
+      const { error } = await sb.auth.signUp({
         email,
         password,
         options: {
@@ -41,14 +34,11 @@
       });
 
       if (error) {
-        console.error("Signup error:", error);
         Util.toast("Signup failed", error.message);
         return;
       }
 
-      console.log("Signup success:", data);
-
-      window.location.href = "congrats.html";
+      window.location.href = "login.html";
     });
   });
 })();
