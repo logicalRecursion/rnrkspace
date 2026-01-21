@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OldPeopleSpace - Forgot Password</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="ops-page">
+    <header class="ops-topbar">
+      <a class="ops-logo" href="index.html">OldPeopleSpace</a>
+      <nav class="ops-nav">
+        <a href="login.html">Log In</a>
+        <a href="index.html">Home</a>
+      </nav>
+    </header>
+
+    <main class="ops-shell">
+      <section class="ops-card" style="max-width: 520px; margin: 24px auto;">
+        <h1 class="ops-h1">Forgot your password?</h1>
+        <p class="ops-muted">
+          Drop your email below. If it’s in our system, we’ll send a reset link.
+        </p>
+
+        <form id="forgotForm" class="ops-form">
+          <label class="ops-label" for="email">Email</label>
+          <input id="email" name="email" class="ops-input" type="email" required autocomplete="email" />
+
+          <button id="sendBtn" class="ops-btn" type="submit">Send reset link</button>
+        </form>
+
+        <div id="msg" class="ops-msg" aria-live="polite" style="margin-top: 12px;"></div>
+
+        <hr class="ops-hr" />
+        <p class="ops-muted">
+          Remembered it? <a href="login.html">Back to login</a>
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="js/forgot.js"></script>
+</body>
+</html>
