@@ -1,46 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>OldPeopleSpace - Forgot Password</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <title>Forgot Password — OldPeopleSpace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" href="logos/oldpeoplespace.png">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Supabase CDN (same as login.html) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Same shared scripts/order as login.html -->
+  <script src="js/config.js" defer></script>
+  <script src="js/supabaseClient.js" defer></script>
+  <script src="js/util.js" defer></script>
+
+  <!-- Page script -->
+  <script src="js/forgot.js" defer></script>
+
+  <!-- If app.js is part of your global UX/toast helpers, keep it -->
+  <script src="js/app.js" defer></script>
 </head>
+
 <body>
-
-  <div class="ops-page">
-    <header class="ops-topbar">
-      <a class="ops-logo" href="index.html">OldPeopleSpace</a>
-      <nav class="ops-nav">
-        <a href="login.html">Log In</a>
-        <a href="index.html">Home</a>
-      </nav>
-    </header>
-
-    <main class="ops-shell">
-      <section class="ops-card" style="max-width: 520px; margin: 24px auto;">
-        <h1 class="ops-h1">Forgot your password?</h1>
-        <p class="ops-muted">
-          Drop your email below. If it’s in our system, we’ll send a reset link.
-        </p>
-
-        <form id="forgotForm" class="ops-form">
-          <label class="ops-label" for="email">Email</label>
-          <input id="email" name="email" class="ops-input" type="email" required autocomplete="email" />
-
-          <button id="sendBtn" class="ops-btn" type="submit">Send reset link</button>
-        </form>
-
-        <div id="msg" class="ops-msg" aria-live="polite" style="margin-top: 12px;"></div>
-
-        <hr class="ops-hr" />
-        <p class="ops-muted">
-          Remembered it? <a href="login.html">Back to login</a>
-        </p>
-      </section>
-    </main>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <img src="logos/oldpeoplespace.png" alt="">
+        <div>
+          <div class="brand-title">OldPeopleSpace</div>
+          <div class="brand-tag">A Place for Old Faces</div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <script type="module" src="js/forgot.js"></script>
+  <div class="page">
+    <div class="frame">
+      <div class="module" style="max-width:520px;margin:0 auto;">
+        <div class="module-hd">
+          <div class="module-title">Forgot your password?</div>
+        </div>
+
+        <div class="module-bd">
+          <div class="small muted" style="margin-bottom:10px;">
+            Enter the email you used to sign up. If it exists, we’ll send you a reset link.
+          </div>
+
+          <form id="forgotForm">
+            <label class="label" for="email">Email</label>
+            <input id="email" type="email" class="input" required autocomplete="email">
+
+            <div class="actions" style="margin-top:12px;">
+              <button type="submit" class="btn primary" id="sendBtn">
+                Send reset link
+              </button>
+            </div>
+          </form>
+
+          <div class="small muted" style="margin-top:12px;">
+            Remembered it?
+            <a href="login.html">Back to login</a>
+          </div>
+
+          <div class="small muted" style="margin-top:8px;">
+            New here?
+            <a href="signup.html">Create an account</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container (matches your login.html) -->
+  <div class="toast" id="toast">
+    <div class="toast-title t-title"></div>
+    <div class="toast-msg t-msg"></div>
+  </div>
 </body>
 </html>
